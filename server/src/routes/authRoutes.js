@@ -69,16 +69,17 @@ router.post("/register", async (req, res) => {
     ]);
 
     //generate jwt and send to user
-    const token = jwtGenerator(
-      {
-        userId: newUser.rows[0].user_id,
-      },
-      "15m"
-    );
-    res.cookie("refresh-token", jwtGenerator(newUser.rows[0].user_id, "20m"), {
-      httpOnly: true,
+    const token = jwtGenerator({
+      userId: newUser.rows[0].user_id,
     });
-    res.status(401).json({ token });
+    res.cookie(
+      "refresh-token",
+      jwtGenerator(newUser.rows[0].user_id, 60 * 20),
+      {
+        httpOnly: true,
+      }
+    );
+    res.status(201).json({ token });
   } catch (err) {
     return res.status(500).send(err.message);
   }
@@ -112,7 +113,7 @@ router.post("/login", async (req, res) => {
     }
 
     //generate token
-    const token = jwtGenerator({ userId: user.rows[0].user_id }, "15m");
+    const token = jwtGenerator({ userId: user.rows[0].user_id });
 
     //send refresh token in httponly cookie and send access token
     res.cookie("refreshToken ", jwtGenerator({ token }, "20m"), {
