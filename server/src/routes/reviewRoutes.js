@@ -13,7 +13,7 @@ router.post("/restaurant/:id", authorization, async (req, res) => {
   try {
     //find restaurant by id
     const fetchRestaurantQuery =
-      "SELECT * FROM Restaurant WHERE restaurant_id = $1";
+      "SELECT * FROM Restaurants WHERE restaurant_id = $1";
     const restaurant = await db.query(fetchRestaurantQuery, [id]);
     //send back error if restaurant does not exist
     if (restaurant.rows.length === 0) {
@@ -31,10 +31,12 @@ router.post("/restaurant/:id", authorization, async (req, res) => {
 
     //find user by id and increment the review count
     const fetchUserQuery = "SELECT review_count FROM Users WHERE user_id = $1";
-    const updateReviewCountQuery = "UPDATE Users SET review_count = $1 ";
+    const updateReviewCountQuery =
+      "UPDATE Users SET review_count = $1 + 1 WHERE user_id = $2";
     const currentUser = await db.query(fetchUserQuery, [userId]);
     await db.query(updateReviewCountQuery, [
-      currentUser.rows[0].review_count++,
+      currentUser.rows[0].review_count,
+      userId,
     ]);
 
     res.status(201).json(newReview.rows[0]);
@@ -46,7 +48,7 @@ router.post("/restaurant/:id", authorization, async (req, res) => {
 router.get("/restaurant/all-reviews", async (req, res) => {
   try {
     const getReviewsQuery =
-      "SELECT rest.*, rev.* FROM Restaurant rest JOIN Reviews rev ON rev.review_id = rest.restaurant_id";
+      "SELECT rest.*, rev.* FROM Restaurants rest JOIN Reviews rev ON rev.restaurant_id = rest.restaurant_id";
     const response = await db.query(getReviewsQuery);
     res.json(response.rows);
   } catch (err) {
@@ -54,17 +56,35 @@ router.get("/restaurant/all-reviews", async (req, res) => {
   }
 });
 
-router.get("/:reviewId/restaurant/:restaurantId", async (req, res) => {
-  const { reviewId, restaurantId } = req.params;
+router.get("/restaurant/:restaurantId", async (req, res) => {
+  const { restaurantId } = req.params;
 
   try {
+    const fetchRestaurantReviewsQuery =
+      "SELECT rest.*, rev.* FROM Restaurants rest JOIN Reviews rev ON rev.restaurant_id = rest.restaurant_id WHERE rest.restaurant_id = $1";
+    const response = await db.query(fetchRestaurantReviewsQuery, [
+      restaurantId,
+    ]);
+    res.send(response.rows);
   } catch (err) {
     res.status(500).send(err.message);
   }
 });
 
-router.patch("/:reviewId/restaurant/:restaurantId", async (req, res) => {
-  const { reviewId, restaurantId } = req.params;
+router.patch("/:reviewId", async (req, res) => {
+  const { reviewId } = req.params;
+
+  try {
+    const fetchReviewQuery = "SELECT useful FROM Reviews WHERE review_id = $1";
+    const updateUsefulQuery =
+      "UPDATE Reviews SET useful = $1 + 1 WHERE review_id = $2 RETURNING * ";
+    const review = await db.query(fetchReviewQuery, [reviewId]);
+    const { useful } = review.rows[0];
+    const updatedUseful = await db.query(updateUsefulQuery, [useful, reviewId]);
+    res.json(updatedUseful.rows);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 module.exports = router;

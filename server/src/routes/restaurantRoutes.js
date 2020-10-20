@@ -6,8 +6,6 @@ const adminAuthorization = require("../middlewares/adminAuthorization");
 
 const router = express.Router();
 
-//TODO: TEST ENDPOINTS
-
 router.post("/", authorization, adminAuthorization, async (req, res) => {
   const { restaurant_name, restaurant_city, restaurant_state } = req.body;
 
@@ -19,7 +17,7 @@ router.post("/", authorization, adminAuthorization, async (req, res) => {
   try {
     //find restaurant by name
     const fetchRestaurantQuery =
-      "SELECT restaurant_name FROM Restaurant WHERE restaurant_name = $1";
+      "SELECT restaurant_name FROM Restaurants WHERE restaurant_name = $1";
     const restaurant = await db.query(fetchRestaurantQuery, [restaurant_name]);
 
     //send error response if a restaurant was found
@@ -28,7 +26,7 @@ router.post("/", authorization, adminAuthorization, async (req, res) => {
     }
 
     const insertRestaurantQuery =
-      "INSERT INTO Restaurant (restaurant_name, restaurant_city, restaurant_state) VALUES($1, $2, $3) ";
+      "INSERT INTO Restaurants (restaurant_name, restaurant_city, restaurant_state) VALUES($1, $2, $3) RETURNING *";
     const newRestaurant = await db.query(insertRestaurantQuery, [
       restaurant_name,
       restaurant_city,
@@ -43,7 +41,7 @@ router.post("/", authorization, adminAuthorization, async (req, res) => {
 
 router.get("/all-restaurants", async (req, res) => {
   try {
-    const fetchRestaurantsQuery = "SELECT * FROM Restaurant";
+    const fetchRestaurantsQuery = "SELECT * FROM Restaurants";
     const restaurants = await db.query(fetchRestaurantsQuery);
     res.send(restaurants.rows);
   } catch (err) {
