@@ -8,7 +8,7 @@ export const registerUser = (formValues) => {
         "http://localhost:5000/api/restaurant-reviewy/auth/register",
         formValues
       );
-      console.log("register user response", response);
+      sessionStorage.setItem("token", response.data.token);
       dispatch({
         type: types.REGISTER_USER,
         payload: response.data,
@@ -27,6 +27,7 @@ export const loginUser = (formValues) => {
         "http://localhost:5000/api/restaurant-reviewy/auth/login",
         formValues
       );
+      sessionStorage.setItem("token", response.data.token);
       dispatch({
         type: types.LOGIN_USER,
         payload: response.data,
@@ -39,6 +40,32 @@ export const loginUser = (formValues) => {
         type: types.ERROR,
         payload: err.response,
       });
+    }
+  };
+};
+
+export const fetchUser = () => {
+  return async (dispatch) => {
+    try {
+      const token = sessionStorage.getItem("token");
+      let response;
+      if (token) {
+        response = await axios.get(
+          "http://localhost:5000/api/restaurant-reviewy/user",
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        dispatch({
+          type: types.FETCH_USER,
+          payload: response.data,
+        });
+        console.log(response.data);
+      }
+    } catch (err) {
+      dispatch({ type: types.ERROR, payload: err.response });
     }
   };
 };

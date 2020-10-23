@@ -4,14 +4,11 @@ import RestaurantMenuSharpIcon from "@material-ui/icons/RestaurantMenuSharp";
 import { Typography } from "@material-ui/core";
 import { AppBar } from "@material-ui/core";
 import { Toolbar } from "@material-ui/core";
-import { Box } from "@material-ui/core";
-import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import AvatarMenu from "components/AvatarMenu";
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   iconLink: {
     marginRight: theme.spacing(2),
     color: "#fff",
@@ -40,40 +37,36 @@ const Navbar = ({ auth }) => {
   const classes = useStyles();
   function renderLoggedInUser() {
     return (
-      <Box clasName={classes.root}>
-        <AppBar position='static'>
-          <Toolbar>
-            <Link to='/user/dashboard' className={classes.iconLink}>
-              <RestaurantMenuSharpIcon fontSize='large' />
+      <AppBar position='static'>
+        <Toolbar>
+          <Link to='/user/dashboard' className={classes.iconLink}>
+            <RestaurantMenuSharpIcon fontSize='large' />
+          </Link>
+          <div className={classes.home}>
+            <Link to='/user/dashboard' className={classes.link}>
+              <Typography
+                component='h3'
+                align='center'
+                className={classes.home}
+              >
+                Home
+              </Typography>
             </Link>
-            <div className={classes.home}>
-              <Link to='/user/dashboard' className={classes.link}>
-                <Typography
-                  component='h3'
-                  align='center'
-                  className={classes.home}
-                >
-                  Home
-                </Typography>
-              </Link>
-            </div>
-            <div className={classes.writeReview}>
-              <Link className={classes.link}>
-                <Typography
-                  component='h3'
-                  align='center'
-                  className={classes.home}
-                >
-                  Write Review
-                </Typography>
-              </Link>
-            </div>
-            <div className={classes.profile}>
-              <Avatar></Avatar>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </Box>
+          </div>
+          <div className={classes.writeReview}>
+            <Link className={classes.link}>
+              <Typography
+                component='h3'
+                align='center'
+                className={classes.home}
+              >
+                Write Review
+              </Typography>
+            </Link>
+          </div>
+          <AvatarMenu />
+        </Toolbar>
+      </AppBar>
     );
   }
   return <>{renderLoggedInUser()}</>;
