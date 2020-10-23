@@ -29,12 +29,28 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none",
   },
+  signIn: {
+    marginRight: theme.spacing(2),
+    textDecoration: "none",
+    color: "#fff",
+  },
 }));
 
 //TODO: NEED TO IMPLEMENT LOGIC FOR WRITE REVIEW, AUTH AND PROFILE
 
 const Navbar = ({ auth }) => {
   const classes = useStyles();
+
+  function renderSignIn() {
+    return (
+      <Link to='/user/login' className={classes.signIn}>
+        <Typography component='h3' align='center'>
+          Sign In
+        </Typography>
+      </Link>
+    );
+  }
+
   function renderLoggedInUser() {
     return (
       <AppBar position='static'>
@@ -64,7 +80,7 @@ const Navbar = ({ auth }) => {
               </Typography>
             </Link>
           </div>
-          <AvatarMenu />
+          {!auth.token ? renderSignIn() : <AvatarMenu />}
         </Toolbar>
       </AppBar>
     );

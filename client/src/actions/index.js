@@ -1,13 +1,11 @@
 import types from "actions/types";
-import axios from "axios";
+import axiosAuth from "axios/axiosAuth";
+import axiosUser from "axios/axiosUser";
 
 export const registerUser = (formValues) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/restaurant-reviewy/auth/register",
-        formValues
-      );
+      const response = await axiosAuth.post("/register", formValues);
       sessionStorage.setItem("token", response.data.token);
       dispatch({
         type: types.REGISTER_USER,
@@ -23,10 +21,7 @@ export const loginUser = (formValues) => {
   return async (dispatch) => {
     let response;
     try {
-      response = await axios.post(
-        "http://localhost:5000/api/restaurant-reviewy/auth/login",
-        formValues
-      );
+      response = await axiosAuth.post("/login", formValues);
       sessionStorage.setItem("token", response.data.token);
       dispatch({
         type: types.LOGIN_USER,
@@ -50,14 +45,12 @@ export const fetchUser = () => {
       const token = sessionStorage.getItem("token");
       let response;
       if (token) {
-        response = await axios.get(
-          "http://localhost:5000/api/restaurant-reviewy/user",
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
+        response = await axiosUser.get("/", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        console.log(response.data);
         dispatch({
           type: types.FETCH_USER,
           payload: response.data,

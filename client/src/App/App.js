@@ -13,10 +13,11 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
+
   render() {
     return (
       <Router>
-        <Navbar />
+        <Navbar auth={this.props.auth} />
         <Switch>
           <Route path='/user/dashboard' exact>
             <Dashboard />
@@ -33,4 +34,11 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchUser })(App);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, { fetchUser })(App);
