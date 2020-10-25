@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RestaurantMenuSharpIcon from "@material-ui/icons/RestaurantMenuSharp";
-import { Typography } from "@material-ui/core";
-import { AppBar } from "@material-ui/core";
-import { Toolbar } from "@material-ui/core";
+import { AppBar, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import AvatarMenu from "components/AvatarMenu";
+import LinkText from "components/LinkText";
 
 const useStyles = makeStyles((theme) => ({
   iconLink: {
@@ -38,16 +37,17 @@ const useStyles = makeStyles((theme) => ({
 
 //TODO: NEED TO IMPLEMENT LOGIC FOR WRITE REVIEW, AUTH AND PROFILE
 
-const Navbar = ({ auth }) => {
+const Navbar = ({ auth, user }) => {
   const classes = useStyles();
 
   function renderSignIn() {
     return (
-      <Link to='/user/login' className={classes.signIn}>
-        <Typography component='h3' align='center'>
-          Sign In
-        </Typography>
-      </Link>
+      <LinkText
+        path='/user/login'
+        component='h3'
+        text='Sign In'
+        classes={{ link: classes.signIn }}
+      />
     );
   }
 
@@ -59,28 +59,22 @@ const Navbar = ({ auth }) => {
             <RestaurantMenuSharpIcon fontSize='large' />
           </Link>
           <div className={classes.home}>
-            <Link to='/user/dashboard' className={classes.link}>
-              <Typography
-                component='h3'
-                align='center'
-                className={classes.home}
-              >
-                Home
-              </Typography>
-            </Link>
+            <LinkText
+              path='/user/dashboard'
+              component='h3'
+              text='Home'
+              classes={{ link: classes.link, text: classes.home }}
+            />
           </div>
           <div className={classes.writeReview}>
-            <Link className={classes.link}>
-              <Typography
-                component='h3'
-                align='center'
-                className={classes.home}
-              >
-                Write Review
-              </Typography>
-            </Link>
+            <LinkText
+              path=''
+              component='h3'
+              text='Write Review'
+              classes={{ link: classes.link, text: classes.home }}
+            />
           </div>
-          {!auth.token ? renderSignIn() : <AvatarMenu />}
+          {!auth.token ? renderSignIn() : <AvatarMenu user={user} />}
         </Toolbar>
       </AppBar>
     );

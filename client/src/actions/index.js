@@ -44,21 +44,41 @@ export const fetchUser = () => {
     try {
       const token = sessionStorage.getItem("token");
       let response;
-      if (token) {
-        response = await axiosUser.get("/", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        console.log(response.data);
-        dispatch({
-          type: types.FETCH_USER,
-          payload: response.data,
-        });
-        console.log(response.data);
-      }
+
+      response = await axiosUser.get("/", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      console.log("fetched user response", response.data);
+      dispatch({
+        type: types.FETCH_USER,
+        payload: response.data,
+      });
     } catch (err) {
       dispatch({ type: types.ERROR, payload: err.response });
     }
   };
+};
+
+export const updateUser = (formValues) => {
+  return async (dispatch) => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axiosUser.patch("/", formValues, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      console.log(response.data);
+      dispatch({ type: types.UPDATE_USER });
+    } catch (err) {
+      dispatch({ type: types.ERROR, payload: err.response });
+    }
+  };
+};
+
+export const logout = () => {
+  sessionStorage.removeItem("token");
+  return { type: types.LOGOUT };
 };

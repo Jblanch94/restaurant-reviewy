@@ -19,6 +19,7 @@ router.get("/", authorization, async (req, res) => {
 
     //send back user profile
     const userProfile = user.rows[0];
+    console.log(userProfile);
     res.json(userProfile);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -30,7 +31,7 @@ router.patch("/", authorization, async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    if (!username || !password) {
+    if (!username && !password) {
       return res.status(400).send("No updates were specified!");
     }
 

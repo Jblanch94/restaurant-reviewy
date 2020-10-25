@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
+const helmet = require("helmet");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -15,7 +15,7 @@ const baseUrl = "/api/restaurant-reviewy";
 app.use(express.json());
 app.use(morgan("combined"));
 app.use(cookieParser());
-app.use(cors());
+app.use(helmet());
 
 //routes
 app.use(`${baseUrl}/auth`, authRoutes);

@@ -1,38 +1,63 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Avatar } from "@material-ui/core";
 import { Menu } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
+
+import { logout } from "actions";
+import ProfileForm from "components/ProfileForm";
 
 class AvatarMenu extends Component {
-  state = { open: false, anchorEl: null };
+  state = { menuOpen: false, modalOpen: false, anchorEl: null };
 
-  handleClick = (evt) => {
+  handleMenuClick = (evt) => {
     const anchorEl = evt.currentTarget;
     this.setState((prevState) => ({
       ...prevState,
-      open: !prevState.open,
+      menuOpen: !prevState.menuOpen,
       anchorEl,
+    }));
+  };
+
+  handleModalClick = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      modalOpen: !prevState.modalOpen,
     }));
   };
 
   render() {
     return (
-      <>
-        <Avatar id='avatar' onClick={this.handleClick}></Avatar>
+      <div>
+        <Avatar id='avatar' onClick={this.handleMenuClick}></Avatar>
         <Menu
           id='avatar-menu'
           anchorEl={this.state.anchorEl}
-          open={this.state.open}
-          onClose={this.handleClick}
+          open={this.state.menuOpen}
+          onClose={this.handleMenuClick}
           getContentAnchorEl={null}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>Sign Out</MenuItem>
+          <MenuItem onClick={this.handleModalClick}>Profile</MenuItem>
+          <MenuItem onClick={this.props.logout}>Sign Out</MenuItem>
         </Menu>
-      </>
+        <Dialog
+          disableBackdropClick
+          onClose={this.handleModalClick}
+          open={this.state.modalOpen}
+          transitionDuration={500}
+          maxWidth='sm'
+          fullWidth
+        >
+          <ProfileForm
+            user={this.props.user}
+            handleModalClick={this.handleModalClick}
+          />
+        </Dialog>
+      </div>
     );
   }
 }
 
-export default AvatarMenu;
+export default connect(null, { logout })(AvatarMenu);
