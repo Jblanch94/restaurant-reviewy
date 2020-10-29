@@ -6,7 +6,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
-import { registerUser } from "actions";
+import { registerUser, fetchUser } from "actions";
 import "Register/Register.css";
 
 class Register extends Component {
@@ -40,6 +40,7 @@ class Register extends Component {
         username: this.state.username,
         password: this.state.password,
       });
+      this.props.fetchUser();
       this.setState({
         first_name: "",
         last_name: "",
@@ -146,4 +147,4 @@ class Register extends Component {
   }
 }
 
-export default connect(null, { registerUser })(Register);
+export default connect(null, { registerUser, fetchUser })(Register);

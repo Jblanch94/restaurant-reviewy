@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import RestaurantMenuSharpIcon from "@material-ui/icons/RestaurantMenuSharp";
 import { AppBar, Toolbar } from "@material-ui/core";
@@ -52,6 +53,7 @@ const Navbar = ({ auth, user }) => {
   }
 
   function renderLoggedInUser() {
+    const token = sessionStorage.getItem("token");
     return (
       <AppBar position='static'>
         <Toolbar>
@@ -74,7 +76,7 @@ const Navbar = ({ auth, user }) => {
               classes={{ link: classes.link, text: classes.home }}
             />
           </div>
-          {!auth.token ? renderSignIn() : <AvatarMenu user={user} />}
+          {!token ? renderSignIn() : <AvatarMenu user={user} />}
         </Toolbar>
       </AppBar>
     );
@@ -82,4 +84,9 @@ const Navbar = ({ auth, user }) => {
   return <>{renderLoggedInUser()}</>;
 };
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  const { user, auth } = state;
+  return { user, auth };
+};
+
+export default connect(mapStateToProps)(Navbar);

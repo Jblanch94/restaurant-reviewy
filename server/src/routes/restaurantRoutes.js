@@ -41,7 +41,7 @@ router.post("/", authorization, adminAuthorization, async (req, res) => {
 
 router.get("/all-restaurants", async (req, res) => {
   try {
-    const fetchRestaurantsQuery = "SELECT * FROM Restaurants";
+    const fetchRestaurantsQuery = "SELECT * FROM Restaurants ";
     const restaurants = await db.query(fetchRestaurantsQuery);
     res.send(restaurants.rows);
   } catch (err) {

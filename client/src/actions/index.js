@@ -1,6 +1,7 @@
 import types from "actions/types";
 import axiosAuth from "axios/axiosAuth";
 import axiosUser from "axios/axiosUser";
+import axiosRestaurant from "axios/axiosRestaurant";
 
 export const registerUser = (formValues) => {
   return async (dispatch) => {
@@ -33,7 +34,7 @@ export const loginUser = (formValues) => {
       console.error(err.message);
       dispatch({
         type: types.ERROR,
-        payload: err.response,
+        payload: err.response.statusText,
       });
     }
   };
@@ -42,6 +43,7 @@ export const loginUser = (formValues) => {
 export const fetchUser = () => {
   return async (dispatch) => {
     try {
+      console.log("fetching user");
       const token = sessionStorage.getItem("token");
       let response;
 
@@ -50,7 +52,6 @@ export const fetchUser = () => {
           Authorization: "Bearer " + token,
         },
       });
-      console.log("fetched user response", response.data);
       dispatch({
         type: types.FETCH_USER,
         payload: response.data,
@@ -65,12 +66,11 @@ export const updateUser = (formValues) => {
   return async (dispatch) => {
     try {
       const token = sessionStorage.getItem("token");
-      const response = await axiosUser.patch("/", formValues, {
+      await axiosUser.patch("/", formValues, {
         headers: {
           Authorization: "Bearer " + token,
         },
       });
-      console.log(response.data);
       dispatch({ type: types.UPDATE_USER });
     } catch (err) {
       dispatch({ type: types.ERROR, payload: err.response });
@@ -81,4 +81,27 @@ export const updateUser = (formValues) => {
 export const logout = () => {
   sessionStorage.removeItem("token");
   return { type: types.LOGOUT };
+};
+
+export const getAllRestaurants = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axiosRestaurant.get("/all-restaurants");
+      dispatch({
+        type: types.FETCH_RESTAURANTS,
+        payload: response.data,
+      });
+      console.log(response);
+    } catch (err) {
+      dispatch({ type: types.ERROR, payload: err.response });
+    }
+  };
+};
+
+export const findRestaurantByName = (name) => {
+  return { type: types.FIND_RESTAURANT, payload: name };
+};
+
+export const setEmptySearchBar = () => {
+  return { type: types.SET_SEARCHBAR_EMPTY };
 };

@@ -8,33 +8,30 @@ import Register from "Register/Register";
 import Login from "Login/Login";
 import Navbar from "Navbar/Navbar";
 import Dashboard from "Dashboard/Dashboard";
+import Restaurant from "Restaurant/Restaurant";
 import "App/App.css";
-
-//ISSUE DOES NOT UPDATE WHEN IT NEEDS TO AND MAKES 3 REQUESTS TO FETCH USER
 
 class App extends Component {
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
+    const token = sessionStorage.getItem("token");
+    if (token) {
       this.props.fetchUser();
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.auth.isAuthenticated) {
-      if (
-        !this.props.user.user_id ||
-        !_.isEqual(this.props.user, prevProps.user)
-      ) {
-        this.props.fetchUser();
-      }
+    if (
+      (_.isEmpty(this.props.user) && this.props.auth.isAuthenticated) ||
+      (_.isEqual(prevProps.user, this.props.user) && this.props.isAuthenticated)
+    ) {
+      this.props.fetchUser();
     }
   }
 
   render() {
-    console.log("user", this.props.user);
     return (
       <Router>
-        <Navbar auth={this.props.auth} user={this.props.user} />
+        <Navbar />
         <Switch>
           <Route path='/user/dashboard' exact>
             <Dashboard />
@@ -45,6 +42,10 @@ class App extends Component {
           <Route path='/user/login' exact>
             <Login />
           </Route>
+          <Route
+            path='/user/dashboard/restaurant/:id'
+            render={(routeProps) => <Restaurant {...routeProps} />}
+          />
         </Switch>
       </Router>
     );
