@@ -2,6 +2,7 @@ import types from "actions/types";
 import axiosAuth from "axios/axiosAuth";
 import axiosUser from "axios/axiosUser";
 import axiosRestaurant from "axios/axiosRestaurant";
+import axiosReview from "axios/axiosReview";
 
 export const registerUser = (formValues) => {
   return async (dispatch) => {
@@ -98,10 +99,16 @@ export const getAllRestaurants = () => {
   };
 };
 
-export const findRestaurantByName = (name) => {
-  return { type: types.FIND_RESTAURANT, payload: name };
-};
-
-export const setEmptySearchBar = () => {
-  return { type: types.SET_SEARCHBAR_EMPTY };
+export const fetchRestaurantReviews = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axiosReview.get(`/restaurant/${id}`);
+      dispatch({
+        type: types.FETCH_RESTAURANT_REVIEWS,
+        payload: response.data,
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 };
