@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import _ from "lodash";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
@@ -34,12 +35,15 @@ class Register extends Component {
 
     //if there are no errors then make api request and clear fields
     if (_.keys(formErrors).length === 0) {
-      this.props.registerUser({
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        username: this.state.username,
-        password: this.state.password,
-      });
+      this.props.registerUser(
+        {
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          username: this.state.username,
+          password: this.state.password,
+        },
+        this.props.history
+      );
       this.props.fetchUser();
       this.setState({
         first_name: "",
@@ -147,4 +151,4 @@ class Register extends Component {
   }
 }
 
-export default connect(null, { registerUser, fetchUser })(Register);
+export default connect(null, { registerUser, fetchUser })(withRouter(Register));

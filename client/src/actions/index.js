@@ -4,7 +4,7 @@ import axiosUser from "axios/axiosUser";
 import axiosRestaurant from "axios/axiosRestaurant";
 import axiosReview from "axios/axiosReview";
 
-export const registerUser = (formValues) => {
+export const registerUser = (formValues, history) => {
   return async (dispatch) => {
     try {
       const response = await axiosAuth.post("/register", formValues);
@@ -13,13 +13,14 @@ export const registerUser = (formValues) => {
         type: types.REGISTER_USER,
         payload: response.data,
       });
+      history.push("/user/dashboard");
     } catch (err) {
       console.error(err.message);
     }
   };
 };
 
-export const loginUser = (formValues) => {
+export const loginUser = (formValues, history) => {
   return async (dispatch) => {
     let response;
     try {
@@ -29,6 +30,7 @@ export const loginUser = (formValues) => {
         type: types.LOGIN_USER,
         payload: response.data,
       });
+      history.push("/user/dashboard");
 
       //if there is error
     } catch (err) {
@@ -92,7 +94,6 @@ export const getAllRestaurants = () => {
         type: types.FETCH_RESTAURANTS,
         payload: response.data,
       });
-      console.log(response);
     } catch (err) {
       dispatch({ type: types.ERROR, payload: err.response });
     }
@@ -107,6 +108,25 @@ export const fetchRestaurantReviews = (id) => {
         type: types.FETCH_RESTAURANT_REVIEWS,
         payload: response.data,
       });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+};
+
+export const submitReview = (formValues, id, history) => {
+  return async (dispatch) => {
+    try {
+      const response = await axiosReview.post(`/restaurant/${id}`, formValues, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      });
+      dispatch({
+        type: types.SUBMIT_REVIEW,
+        payload: response.data,
+      });
+      history.push("/user/dashboard");
     } catch (err) {
       console.error(err.message);
     }

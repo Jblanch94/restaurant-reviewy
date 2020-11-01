@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { loginUser } from "actions";
 
 class Login extends Component {
@@ -19,10 +20,13 @@ class Login extends Component {
 
   onFormSubmit = (evt) => {
     evt.preventDefault();
-    this.props.loginUser({
-      username: this.state.username,
-      password: this.state.password,
-    });
+    this.props.loginUser(
+      {
+        username: this.state.username,
+        password: this.state.password,
+      },
+      this.props.history
+    );
   };
 
   render() {
@@ -77,4 +81,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser })(withRouter(Login));

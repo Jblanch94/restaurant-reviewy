@@ -5,7 +5,7 @@ import { Rating } from "@material-ui/lab";
 const ReviewCard = ({ user, review, rating }) => {
   return (
     <>
-      <Card style={{ minWidth: 500, minWidth: 500, margin: "5rem" }}>
+      <Card style={{ minWidth: 500, maxWidth: 500, margin: "5rem" }}>
         <CardContent>
           <Container
             style={{ display: "flex", justifyContent: "space-between" }}

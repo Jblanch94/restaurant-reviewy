@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+} from "react-router-dom";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -9,6 +14,7 @@ import Login from "Login/Login";
 import Navbar from "Navbar/Navbar";
 import Dashboard from "Dashboard/Dashboard";
 import Restaurant from "Restaurant/Restaurant";
+import ReviewForm from "ReviewForm/ReviewForm";
 import "App/App.css";
 
 class App extends Component {
@@ -46,6 +52,9 @@ class App extends Component {
             path='/user/dashboard/restaurant/:id'
             render={(routeProps) => <Restaurant {...routeProps} />}
           />
+          <Route path='/user/review' exact>
+            <ReviewForm />
+          </Route>
         </Switch>
       </Router>
     );

@@ -70,7 +70,7 @@ const Navbar = ({ auth, user }) => {
           </div>
           <div className={classes.writeReview}>
             <LinkText
-              path=''
+              path='/user/review'
               component='h3'
               text='Write Review'
               classes={{ link: classes.link, text: classes.home }}
