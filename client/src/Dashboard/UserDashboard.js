@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import RestaurantCard from "components/RestaurantCard";
-import { getAllRestaurants } from "actions";
+import UserRestaurantCard from 'components/UserRestaurantCard';
+import { getAllRestaurants } from 'actions';
 
-class Dashboard extends Component {
+class UserDashboard extends Component {
   componentDidMount() {
     this.props.getAllRestaurants();
   }
@@ -20,7 +20,7 @@ class Dashboard extends Component {
         average_rating,
       } = restaurant;
       return (
-        <RestaurantCard
+        <UserRestaurantCard
           key={restaurant_id}
           id={restaurant_id}
           name={restaurant_name}
@@ -37,9 +37,9 @@ class Dashboard extends Component {
       <>
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
             flex: 1,
           }}
         >
@@ -56,4 +56,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getAllRestaurants })(Dashboard);
+export default connect(mapStateToProps, { getAllRestaurants })(UserDashboard);

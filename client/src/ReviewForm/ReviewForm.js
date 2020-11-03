@@ -1,21 +1,23 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import {
   InputLabel,
   MenuItem,
   Select,
   Button,
   TextareaAutosize,
-} from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+  Container,
+  Typography,
+} from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 
-import { getAllRestaurants, submitReview } from "actions";
+import { getAllRestaurants, submitReview } from 'actions';
 
 class ReviewForm extends Component {
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      this.props.history.push("/user/login");
+    if (!sessionStorage.getItem('token')) {
+      this.props.history.push('/user/login');
     }
 
     //call action creator to get all restaurants
@@ -24,8 +26,8 @@ class ReviewForm extends Component {
 
   state = {
     rating: 0,
-    review: "",
-    selectedRestaurant: "",
+    review: '',
+    selectedRestaurant: '',
     restaurantId: null,
   };
 
@@ -78,46 +80,63 @@ class ReviewForm extends Component {
     //clear form and go back to dashboard
     this.setState({
       rating: 0,
-      review: "",
-      selectedRestaurant: "",
+      review: '',
+      selectedRestaurant: '',
       restaurantId: null,
     });
   };
 
   render() {
     return (
-      <section>
+      <Container
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '2rem',
+        }}
+      >
         <form onSubmit={this.onFormSubmit}>
-          <InputLabel id='select-restaurant-label'>Restaurant</InputLabel>
-          <Select
-            required
-            labelId='select-restaurant-label'
-            name='selectedRestaurant'
-            id='select-restaurant'
-            value={this.state.selectedRestaurant}
-            onChange={(evt, child) => this.handleSelectChange(evt, child)}
-          >
-            {this.renderMenuItems()}
-          </Select>
-          <Rating
-            name='rating'
-            value={this.state.rating}
-            onChange={this.handleRatingChange}
-          />
-          <TextareaAutosize
-            aria-label='review'
-            name='review'
-            rowsMin={3}
-            placeholder='Enter your review...'
-            value={this.state.review}
-            onChange={this.handleChange}
-          />
+          <Typography variant="h2" style={{ marginBottom: '5rem' }}>
+            Review Form
+          </Typography>
 
-          <Button type='submit' color='primary'>
+          <InputLabel id="select-restaurant-label">Restaurant</InputLabel>
+          <div style={{ marginBottom: '2rem' }}>
+            <Select
+              required
+              labelId="select-restaurant-label"
+              name="selectedRestaurant"
+              id="select-restaurant"
+              fullWidth
+              value={this.state.selectedRestaurant}
+              onChange={(evt, child) => this.handleSelectChange(evt, child)}
+            >
+              {this.renderMenuItems()}
+            </Select>
+          </div>
+          <div style={{ marginBottom: '2rem' }}>
+            <Rating
+              name="rating"
+              value={this.state.rating}
+              onChange={this.handleRatingChange}
+            />
+          </div>
+          <div style={{ marginBottom: '2rem' }}>
+            <TextareaAutosize
+              aria-label="review"
+              name="review"
+              rowsMin={3}
+              placeholder="Enter your review..."
+              value={this.state.review}
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <Button type="submit" color="primary" variant="outlined">
             Submit
           </Button>
         </form>
-      </section>
+      </Container>
     );
   }
 }
