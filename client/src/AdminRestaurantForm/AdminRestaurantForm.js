@@ -12,7 +12,7 @@ import {
   CssBaseline,
 } from '@material-ui/core';
 
-import states from 'utils/states';
+import states from 'assets/states';
 import { addRestaurant } from 'actions';
 
 class AdminRestaurantForm extends Component {
