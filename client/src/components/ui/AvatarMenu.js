@@ -6,7 +6,7 @@ import { MenuItem } from '@material-ui/core';
 import { Dialog } from '@material-ui/core';
 
 import { logout } from 'actions/authActions';
-import ProfileForm from 'components/ProfileForm';
+import ProfileForm from 'components/ui/ProfileForm';
 
 class AvatarMenu extends Component {
   state = { menuOpen: false, modalOpen: false, anchorEl: null };

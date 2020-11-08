@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import RestaurantMenuSharpIcon from '@material-ui/icons/RestaurantMenuSharp';
 import { AppBar, Toolbar } from '@material-ui/core';
 
-import AvatarMenu from 'components/AvatarMenu';
-import LinkText from 'components/LinkText';
+import AvatarMenu from 'components/ui/AvatarMenu';
+import LinkText from 'components/ui/LinkText';
 import useStyles from 'assets/styles/Navbar';
 
 const Navbar = ({ user, auth }) => {
@@ -41,12 +41,12 @@ const Navbar = ({ user, auth }) => {
     return (
       <AppBar position="static">
         <Toolbar>
-          <Link to="/user/dashboard" className={classes.iconLink}>
+          <Link to="/" className={classes.iconLink}>
             <RestaurantMenuSharpIcon fontSize="large" />
           </Link>
           <div className={classes.home}>
             <LinkText
-              path="/user/dashboard"
+              path="/"
               component="h3"
               text="Home"
               classes={{ link: classes.link, text: classes.home }}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchRestaurantReviews } from 'actions/reviewActions';
-import ReviewCard from 'components/ReviewCard';
+import ReviewCard from 'components/ui/ReviewCard';
 
 class Restaurant extends Component {
   componentDidMount() {

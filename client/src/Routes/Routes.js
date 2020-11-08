@@ -6,12 +6,11 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import UserDashboard from 'Dashboard/UserDashboard';
-import AdminDashboard from 'Dashboard/AdminDashboard';
+import DashboardContainer from 'containers/DashboardContainer';
 import Register from 'Register/Register';
 import Login from 'Login/Login';
 import AdminRestaurantFormContainer from 'containers/AdminRestaurantFormContainer';
-import Navbar from 'Navbar/Navbar';
+import Navbar from 'components/ui/Navbar';
 import Restaurant from 'Restaurant/Restaurant';
 import ReviewForm from 'ReviewForm/ReviewForm';
 
@@ -20,28 +19,7 @@ const Routes = ({ user, auth }) => {
     <Router>
       <Navbar user={user} auth={auth} />
       <Switch>
-        <Route
-          path="/user/dashboard"
-          exact
-          render={(routeProps) =>
-            !user.isadmin ? (
-              <UserDashboard {...routeProps} />
-            ) : (
-              <Redirect to="/admin/dashboard" />
-            )
-          }
-        />
-        <Route
-          exact
-          path="/admin/dashboard"
-          render={(routeProps) =>
-            user.isadmin ? (
-              <AdminDashboard {...routeProps} />
-            ) : (
-              <Redirect to="/user/dashboard" />
-            )
-          }
-        />
+        <Route path="/" exact component={DashboardContainer} />
 
         <Route path="/user/register" exact>
           <Register />
@@ -63,7 +41,7 @@ const Routes = ({ user, auth }) => {
             user.isadmin ? (
               <AdminRestaurantFormContainer />
             ) : (
-              <Redirect to="/user/dashboard" />
+              <Redirect to="/" />
             )
           }
         />
