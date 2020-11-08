@@ -10,7 +10,7 @@ import UserDashboard from 'Dashboard/UserDashboard';
 import AdminDashboard from 'Dashboard/AdminDashboard';
 import Register from 'Register/Register';
 import Login from 'Login/Login';
-import AdminRestaurantForm from 'AdminRestaurantForm/AdminRestaurantForm';
+import AdminRestaurantFormContainer from 'containers/AdminRestaurantFormContainer';
 import Navbar from 'Navbar/Navbar';
 import Restaurant from 'Restaurant/Restaurant';
 import ReviewForm from 'ReviewForm/ReviewForm';
@@ -61,7 +61,7 @@ const Routes = ({ user, auth }) => {
           path="/admin/restaurant-form"
           render={() =>
             user.isadmin ? (
-              <AdminRestaurantForm />
+              <AdminRestaurantFormContainer />
             ) : (
               <Redirect to="/user/dashboard" />
             )

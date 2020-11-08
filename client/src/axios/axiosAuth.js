@@ -12,13 +12,15 @@ axiosAuth.interceptors.response.use(
 
       if (response.status === 200) {
         sessionStorage.setItem('token', response.data.accessToken);
-        error.config.header['Authorization'] =
+        error.config.headers['Authorization'] =
           'Bearer ' + sessionStorage.getItem('token');
         error.config.baseURL = '/api/restaurant-reviewy/auth';
-        return axiosRestaurant.request(error.config);
+        return axiosAuth.request(error.config);
       }
     } else {
       return Promise.reject(error);
     }
   }
 );
+
+export default axiosAuth;

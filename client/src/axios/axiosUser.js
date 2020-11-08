@@ -5,7 +5,6 @@ const axiosUser = axios.create({
   baseURL: '/api/restaurant-reviewy/user',
 });
 
-//TODO: NEED TO CHANGE THIS FOR ALL INSTANCES THAT NEED TO BE AUTHENTICATED
 axiosUser.interceptors.response.use(
   (response) => {
     return response;

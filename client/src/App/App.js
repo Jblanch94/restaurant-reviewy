@@ -20,7 +20,7 @@ const App = () => {
     if (auth.isAuthenticated) {
       dispatch(fetchUser());
     }
-  }, [dispatch, auth.isAuthenticated]);
+  }, [dispatch, auth.isAuthenticated, auth.token]);
 
   return <Routes user={user} auth={auth} />;
 };
