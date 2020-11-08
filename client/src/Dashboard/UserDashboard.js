@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import UserRestaurantCard from 'components/UserRestaurantCard';
-import { getAllRestaurants } from 'actions';
+import { getAllRestaurants } from 'actions/restaurantActions';
 
 class UserDashboard extends Component {
   componentDidMount() {

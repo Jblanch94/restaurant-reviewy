@@ -1,21 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import _ from "lodash";
-import TextField from "@material-ui/core/TextField";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
+import TextField from '@material-ui/core/TextField';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-import { registerUser, fetchUser } from "actions";
-import "Register/Register.css";
+import { fetchUser } from 'actions/userActions';
+import { registerUser } from 'actions/authActions';
+import 'Register/Register.css';
 
 class Register extends Component {
   state = {
-    first_name: "",
-    last_name: "",
-    username: "",
-    password: "",
+    first_name: '',
+    last_name: '',
+    username: '',
+    password: '',
     errors: {},
   };
 
@@ -46,10 +47,10 @@ class Register extends Component {
       );
       this.props.fetchUser();
       this.setState({
-        first_name: "",
-        last_name: "",
-        username: "",
-        password: "",
+        first_name: '',
+        last_name: '',
+        username: '',
+        password: '',
       });
     }
   };
@@ -59,38 +60,38 @@ class Register extends Component {
     let errors = {};
     //check that first name and last name is not empty
     if (this.state.first_name.length === 0) {
-      errors.first_name = "Must provide a first name!";
+      errors.first_name = 'Must provide a first name!';
     } else if (this.state.last_name.length === 0) {
-      errors.last_name = "Must provide a last name!";
+      errors.last_name = 'Must provide a last name!';
     }
 
     //check that username has at least 8 characters
     if (this.state.username.length < 8) {
-      errors.username = "Username must contain at least 8 characters!";
+      errors.username = 'Username must contain at least 8 characters!';
     }
 
     //check if it is a valid password
     if (this.state.password.length < 8) {
-      errors.password = "Password must contain at least 8 characters!";
+      errors.password = 'Password must contain at least 8 characters!';
     }
     return errors;
   };
 
   render() {
     return (
-      <Container component='section' maxWidth='sm'>
-        <h1 className='form-header'>REGISTER</h1>
-        <form autoComplete='false' onSubmit={this.onHandleSubmit}>
+      <Container component="section" maxWidth="sm">
+        <h1 className="form-header">REGISTER</h1>
+        <form autoComplete="false" onSubmit={this.onHandleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 error={this.state.errors.first_name !== undefined}
                 helperText={this.state.errors.first_name}
-                variant='outlined'
-                label='First Name'
-                id='first_name'
-                name='first_name'
-                type='text'
+                variant="outlined"
+                label="First Name"
+                id="first_name"
+                name="first_name"
+                type="text"
                 onChange={this.onHandleChange}
                 value={this.state.first_name}
                 required
@@ -101,11 +102,11 @@ class Register extends Component {
               <TextField
                 error={this.state.errors.last_name !== undefined}
                 helperText={this.state.errors.last_name}
-                variant='outlined'
-                label='Last Name'
-                id='last_name'
-                name='last_name'
-                type='text'
+                variant="outlined"
+                label="Last Name"
+                id="last_name"
+                name="last_name"
+                type="text"
                 onChange={this.onHandleChange}
                 value={this.state.last_name}
                 required
@@ -115,11 +116,11 @@ class Register extends Component {
               <TextField
                 error={this.state.errors.username !== undefined}
                 helperText={this.state.errors.username}
-                variant='outlined'
-                label='Username'
-                id='username'
-                name='username'
-                type='text'
+                variant="outlined"
+                label="Username"
+                id="username"
+                name="username"
+                type="text"
                 onChange={this.onHandleChange}
                 value={this.state.username}
                 required
@@ -130,18 +131,18 @@ class Register extends Component {
               <TextField
                 error={this.state.errors.password !== undefined}
                 helperText={this.state.errors.password}
-                variant='outlined'
-                label='Password'
-                id='password'
-                name='password'
-                type='password'
+                variant="outlined"
+                label="Password"
+                id="password"
+                name="password"
+                type="password"
                 onChange={this.onHandleChange}
                 value={this.state.password}
                 required
                 fullWidth
               />
             </Grid>
-            <Button type='submit' fullWidth variant='contained' color='primary'>
+            <Button type="submit" fullWidth variant="contained" color="primary">
               Register
             </Button>
           </Grid>

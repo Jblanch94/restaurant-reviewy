@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { TextField } from "@material-ui/core";
-import { Container } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
-import { Button } from "@material-ui/core";
+import React, { Component } from 'react';
+import { TextField } from '@material-ui/core';
+import { Container } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { loginUser } from "actions";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { loginUser } from 'actions/authActions';
 
 class Login extends Component {
   state = {
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   };
 
   onHandleChange = (evt) => {
@@ -31,41 +31,41 @@ class Login extends Component {
 
   render() {
     return (
-      <Container maxWidth='sm' component='section'>
-        <form autoComplete='false' onSubmit={this.onFormSubmit}>
-          <h1 style={{ textAlign: "center", fontSize: "2rem" }}>Login</h1>
+      <Container maxWidth="sm" component="section">
+        <form autoComplete="false" onSubmit={this.onFormSubmit}>
+          <h1 style={{ textAlign: 'center', fontSize: '2rem' }}>Login</h1>
           <Grid container spacing={2}>
             <Grid item sm={12}>
               <TextField
-                variant='outlined'
-                label='Username'
-                id='username'
-                name='username'
-                type='text'
+                variant="outlined"
+                label="Username"
+                id="username"
+                name="username"
+                type="text"
                 onChange={this.onHandleChange}
                 value={this.state.username}
                 required
                 fullWidth
-                error={this.props.auth.error !== ""}
+                error={this.props.auth.error !== ''}
                 helperText={this.props.auth.error}
               />
             </Grid>
             <Grid item sm={12}>
               <TextField
-                variant='outlined'
-                label='Password'
-                id='password'
-                name='password'
-                type='password'
+                variant="outlined"
+                label="Password"
+                id="password"
+                name="password"
+                type="password"
                 onChange={this.onHandleChange}
                 value={this.state.password}
                 required
                 fullWidth
-                error={this.props.auth.error !== ""}
+                error={this.props.auth.error !== ''}
                 helperText={this.props.auth.error}
               />
             </Grid>
-            <Button variant='contained' type='submit' color='primary' fullWidth>
+            <Button variant="contained" type="submit" color="primary" fullWidth>
               Login
             </Button>
           </Grid>

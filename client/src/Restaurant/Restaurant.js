@@ -1,12 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { fetchRestaurantReviews } from "actions";
-import ReviewCard from "components/ReviewCard";
+import { fetchRestaurantReviews } from 'actions/reviewActions';
+import ReviewCard from 'components/ReviewCard';
 
 class Restaurant extends Component {
-  //TODO: CREATE ACTION CREATOR AND REDUCER TO GET THE USER AND REVIEWS FOR RESTAURANT
-
   componentDidMount() {
     const id = this.props.match.params.id;
 

@@ -12,7 +12,8 @@ import {
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 
-import { getAllRestaurants, submitReview } from 'actions';
+import { getAllRestaurants } from 'actions/restaurantActions';
+import { submitReview } from 'actions/reviewActions';
 
 class ReviewForm extends Component {
   componentDidMount() {

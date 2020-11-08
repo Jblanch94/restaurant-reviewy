@@ -18,7 +18,7 @@ import ReviewForm from 'ReviewForm/ReviewForm';
 const Routes = ({ user, auth }) => {
   return (
     <Router>
-      <Navbar />
+      <Navbar user={user} auth={auth} />
       <Switch>
         <Route
           path="/user/dashboard"

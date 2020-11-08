@@ -4,7 +4,7 @@ import { Fab } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
-import { getAllRestaurants } from 'actions';
+import { getAllRestaurants } from 'actions/restaurantActions';
 import AdminRestaurantCard from 'components/AdminRestaurantCard';
 
 class AdminDashboard extends Component {

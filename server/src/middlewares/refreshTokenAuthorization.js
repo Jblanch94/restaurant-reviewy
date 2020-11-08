@@ -13,13 +13,13 @@ module.exports = function (req, res, next) {
     //if successful issue new access token and new refresh token
     if (decoded) {
       const userId = decoded.userId;
-      const refreshToken = jwtGenerator({ userId }, '15m');
-      const accessToken = jwtGenerator({ userId }, '25m');
+      const refreshToken = jwtGenerator({ userId }, '20m');
+      const accessToken = jwtGenerator({ userId }, '1m');
       req.refreshToken = refreshToken;
       req.accessToken = accessToken;
     }
     next();
   } catch (err) {
-    return res.status(500).send(err.message);
+    return res.status(401).send(err.message);
   }
 };

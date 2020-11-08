@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 import states from 'assets/states';
-import { addRestaurant } from 'actions';
+import { addRestaurant } from 'actions/restaurantActions';
 
 class AdminRestaurantForm extends Component {
   state = { name: '', city: '', state: '', zipcode: '' };

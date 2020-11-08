@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config({ path: "server/src/.env" });
+const jwt = require('jsonwebtoken');
+require('dotenv').config({ path: 'server/src/.env' });
 
-module.exports = (userObj = {}) => {
+module.exports = (userObj = {}, time) => {
   try {
-    return jwt.sign(userObj, process.env.JWT_SECRET, { expiresIn: 60 * 15 });
+    return jwt.sign(userObj, process.env.JWT_SECRET, { expiresIn: time });
   } catch (error) {
     console.error(error.message);
   }

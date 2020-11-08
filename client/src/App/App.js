@@ -1,30 +1,28 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
-import { connect } from 'react-redux';
-import _ from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchUser } from 'actions';
+import { fetchUser } from 'actions/userActions';
+import { isAuthenticated } from 'actions/authActions';
 import 'App/App.css';
 import Routes from 'Routes/Routes';
 
-class App extends Component {
-  componentDidMount() {
+const App = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token) {
-      this.props.fetchUser();
+      dispatch(isAuthenticated());
     }
-  }
 
-  render() {
-    return <Routes user={this.props.user} auth={this.props.auth} />;
-  }
-}
+    if (auth.isAuthenticated) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch, auth.isAuthenticated]);
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-    user: state.user,
-  };
+  return <Routes user={user} auth={auth} />;
 };
 
-export default connect(mapStateToProps, { fetchUser })(App);
+export default App;
