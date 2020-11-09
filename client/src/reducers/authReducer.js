@@ -3,7 +3,6 @@ import types from 'actions/types';
 const initialState = {
   token: null,
   error: '',
-  isLoading: false,
   isAuthenticated: false,
 };
 
@@ -14,16 +13,12 @@ export default function (state = initialState, action) {
         ...state,
         token: action.payload.token,
         error: '',
-        isLoading: false,
-        isAuthenticated: true,
       };
     case types.LOGIN_USER:
       return {
         ...state,
         token: action.payload.token,
         error: '',
-        isLoading: false,
-        isAuthenticated: true,
       };
     case types.IS_AUTHENTICATED:
       return { ...state, isAuthenticated: action.payload };

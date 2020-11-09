@@ -114,7 +114,7 @@ router.post('/login', async (req, res) => {
     }
 
     //generate token
-    const token = jwtGenerator({ userId: user.rows[0].user_id }, '1m');
+    const token = jwtGenerator({ userId: user.rows[0].user_id }, '15m');
 
     //send refresh token in httponly cookie and send access token
     res.cookie('refreshToken ', jwtGenerator({ token }, '20m'), {
@@ -127,7 +127,6 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/refresh-token', refreshTokenAuthorization, (req, res) => {
-  console.log('made it through middleware');
   res.cookie('refreshToken', req.refreshToken, { httpOnly: true });
   res.json({ accessToken: req.accessToken });
 });

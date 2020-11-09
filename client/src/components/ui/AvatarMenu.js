@@ -1,63 +1,52 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Avatar } from '@material-ui/core';
-import { Menu } from '@material-ui/core';
-import { MenuItem } from '@material-ui/core';
-import { Dialog } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Avatar, Menu, MenuItem, Dialog } from '@material-ui/core';
 
-import { logout } from 'actions/authActions';
-import ProfileForm from 'components/ui/ProfileForm';
+import ProfileFormContainer from 'containers/ProfileFormContainer';
 
-class AvatarMenu extends Component {
-  state = { menuOpen: false, modalOpen: false, anchorEl: null };
+const AvatarMenu = ({ user, auth, logout, dispatch }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  handleMenuClick = (evt) => {
-    const anchorEl = evt.currentTarget;
-    this.setState((prevState) => ({
-      ...prevState,
-      menuOpen: !prevState.menuOpen,
-      anchorEl,
-    }));
+  const handleMenuClick = () => setMenuOpen(!menuOpen);
+
+  const onOpenOrClose = (evt) => {
+    setAnchorEl(evt.currentTarget);
+    handleMenuClick();
   };
 
-  handleModalClick = () => {
-    this.setState((prevState) => ({
-      ...prevState,
-      modalOpen: !prevState.modalOpen,
-    }));
-  };
+  const handleModalClick = () => setModalOpen(!modalOpen);
 
-  render() {
-    return (
-      <div>
-        <Avatar id="avatar" onClick={this.handleMenuClick}></Avatar>
-        <Menu
-          id="avatar-menu"
-          anchorEl={this.state.anchorEl}
-          open={this.state.menuOpen}
-          onClose={this.handleMenuClick}
-          getContentAnchorEl={null}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <MenuItem onClick={this.handleModalClick}>Profile</MenuItem>
-          <MenuItem onClick={this.props.logout}>Sign Out</MenuItem>
-        </Menu>
-        <Dialog
-          disableBackdropClick
-          onClose={this.handleModalClick}
-          open={this.state.modalOpen}
-          transitionDuration={500}
-          maxWidth="sm"
-          fullWidth
-        >
-          <ProfileForm
-            user={this.props.user}
-            handleModalClick={this.handleModalClick}
-          />
-        </Dialog>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Avatar id="avatar" onClick={onOpenOrClose}></Avatar>
+      <Menu
+        id="avatar-menu"
+        anchorEl={anchorEl}
+        open={menuOpen}
+        onClose={onOpenOrClose}
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <MenuItem onClick={handleModalClick}>Profile</MenuItem>
+        <MenuItem onClick={() => dispatch(logout())}>Sign Out</MenuItem>
+      </Menu>
+      <Dialog
+        disableBackdropClick
+        onClose={handleModalClick}
+        open={modalOpen}
+        transitionDuration={500}
+        maxWidth="sm"
+        fullWidth
+      >
+        <ProfileFormContainer
+          user={user}
+          handleModalClick={handleModalClick}
+          handleMenuClick={handleMenuClick}
+        />
+      </Dialog>
+    </div>
+  );
+};
 
-export default connect(null, { logout })(AvatarMenu);
+export default AvatarMenu;

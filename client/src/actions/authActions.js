@@ -19,15 +19,14 @@ export const registerUser = (formValues, history) => {
 
 export const loginUser = (formValues, history) => {
   return async (dispatch) => {
-    let response;
     try {
-      response = await axiosAuth.post('/login', formValues);
+      const response = await axiosAuth.post('/login', formValues);
       sessionStorage.setItem('token', response.data.token);
       dispatch({
         type: types.LOGIN_USER,
         payload: response.data,
       });
-      history.push('/user/dashboard');
+      history.push('/');
 
       //if there is error
     } catch (err) {
@@ -41,6 +40,7 @@ export const loginUser = (formValues, history) => {
 };
 
 export const logout = () => {
+  console.log('token has been removed');
   sessionStorage.removeItem('token');
   return { type: types.LOGOUT };
 };

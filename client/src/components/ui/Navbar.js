@@ -7,7 +7,7 @@ import AvatarMenu from 'components/ui/AvatarMenu';
 import LinkText from 'components/ui/LinkText';
 import useStyles from 'assets/styles/Navbar';
 
-const Navbar = ({ user, auth }) => {
+const Navbar = ({ user, auth, logout, dispatch }) => {
   const classes = useStyles();
 
   function renderWriteReview() {
@@ -53,7 +53,11 @@ const Navbar = ({ user, auth }) => {
             />
           </div>
           {renderWriteReview()}
-          {!token ? renderSignIn() : <AvatarMenu user={user} />}
+          {!token ? (
+            renderSignIn()
+          ) : (
+            <AvatarMenu user={user} logout={logout} dispatch={dispatch} />
+          )}
         </Toolbar>
       </AppBar>
     );
