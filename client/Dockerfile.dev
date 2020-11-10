@@ -1,7 +1,15 @@
 #specify node as base image
 FROM node:alpine
+
+#create working directory
 WORKDIR '/app'
+
+#copy over package.json to get dependencies
 COPY ./package.json .
 RUN npm install
+
+#copy over the rest of the files
 COPY . .
+
+#start the react application
 CMD ["npm", "start"]
