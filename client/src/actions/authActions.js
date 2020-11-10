@@ -10,7 +10,7 @@ export const registerUser = (formValues, history) => {
         type: types.REGISTER_USER,
         payload: response.data,
       });
-      history.push('/user/dashboard');
+      history.push('/');
     } catch (err) {
       console.error(err.message);
     }
@@ -40,7 +40,6 @@ export const loginUser = (formValues, history) => {
 };
 
 export const logout = () => {
-  console.log('token has been removed');
   sessionStorage.removeItem('token');
   return { type: types.LOGOUT };
 };

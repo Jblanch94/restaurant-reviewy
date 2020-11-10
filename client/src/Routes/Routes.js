@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 const DashboardContainer = lazy(() => import('containers/DashboardContainer'));
-const Register = lazy(() => import('Register/Register'));
+const RegisterContainer = lazy(() => import('containers/RegisterContainer'));
 const LoginContainer = lazy(() => import('containers/LoginContainer'));
 const AdminRestaurantFormContainer = lazy(() =>
   import('containers/AdminRestaurantFormContainer')
@@ -25,7 +25,7 @@ const Routes = ({ user, auth }) => {
           <Route path="/" exact component={DashboardContainer} />
 
           <Route path="/user/register" exact>
-            <Register />
+            <RegisterContainer />
           </Route>
           <Route path="/user/login" exact>
             <LoginContainer />

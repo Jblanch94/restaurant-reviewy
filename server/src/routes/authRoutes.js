@@ -70,9 +70,12 @@ router.post('/register', async (req, res) => {
     ]);
 
     //generate jwt and send to user
-    const token = jwtGenerator({
-      userId: newUser.rows[0].user_id,
-    });
+    const token = jwtGenerator(
+      {
+        userId: newUser.rows[0].user_id,
+      },
+      '15m'
+    );
     res.cookie(
       'refresh-token',
       jwtGenerator(newUser.rows[0].user_id, 60 * 20),
