@@ -27,7 +27,7 @@ export const submitReview = (formValues, id, history) => {
         type: types.SUBMIT_REVIEW,
         payload: response.data,
       });
-      history.push('/user/dashboard');
+      history.push('/');
     } catch (err) {
       console.error(err.message);
     }

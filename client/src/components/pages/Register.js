@@ -1,8 +1,5 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { TextField, Container, Grid, Button } from '@material-ui/core';
 
 import useStyles from 'assets/styles/Register';
 

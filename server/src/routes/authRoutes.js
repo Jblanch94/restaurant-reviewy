@@ -76,13 +76,9 @@ router.post('/register', async (req, res) => {
       },
       '15m'
     );
-    res.cookie(
-      'refresh-token',
-      jwtGenerator(newUser.rows[0].user_id, 60 * 20),
-      {
-        httpOnly: true,
-      }
-    );
+    res.cookie('refresh-token', jwtGenerator(newUser.rows[0].user_id, '20m'), {
+      httpOnly: true,
+    });
     res.status(201).json({ token });
   } catch (err) {
     return res.status(500).send(err.message);

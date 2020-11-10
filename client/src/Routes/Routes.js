@@ -13,8 +13,12 @@ const AdminRestaurantFormContainer = lazy(() =>
   import('containers/AdminRestaurantFormContainer')
 );
 const NavbarContainer = lazy(() => import('containers/NavbarContainer'));
-const Restaurant = lazy(() => import('Restaurant/Restaurant'));
-const ReviewForm = lazy(() => import('ReviewForm/ReviewForm'));
+const RestaurantContainer = lazy(() =>
+  import('containers/RestaurantContainer')
+);
+const ReviewFormContainer = lazy(() =>
+  import('containers/ReviewFormContainer')
+);
 
 const Routes = ({ user, auth }) => {
   return (
@@ -32,10 +36,10 @@ const Routes = ({ user, auth }) => {
           </Route>
           <Route
             path="/user/dashboard/restaurant/:id"
-            render={(routeProps) => <Restaurant {...routeProps} />}
+            render={(routeProps) => <RestaurantContainer {...routeProps} />}
           />
           <Route path="/user/review" exact>
-            <ReviewForm />
+            <ReviewFormContainer />
           </Route>
           <Route
             exact
