@@ -16,4 +16,6 @@ if (process.env.ENV === 'production') {
   });
 }
 
+console.log(pool);
+
 module.exports = pool;
