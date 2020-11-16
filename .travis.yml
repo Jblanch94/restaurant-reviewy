@@ -24,6 +24,6 @@ deploy:
   bucket_name: 'elasticbeanstalk-us-east-2-131698153616'
   bucket_path: 'restaurant-reviewy'
   on:
-    branch: master
+    branch: main
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
