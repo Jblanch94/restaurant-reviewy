@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const jwtGenerator = require('../utils/jwtGenerator');
-require('dotenv').config({ path: 'server/src/.env' });
+const keys = require('../config/keys');
 
 module.exports = function (req, res, next) {
   //parse the cookie to get the refresh token
@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
 
   //validate the token
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, keys.JWT_SECRET);
 
     //if successful issue new access token and new refresh token
     if (decoded) {

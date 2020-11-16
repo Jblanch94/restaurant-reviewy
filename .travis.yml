@@ -15,3 +15,15 @@ after_success:
   - docker push jblanch94/reviewy-client
   - docker push jblanch94/reviewy-api
   - docker push jblanch94/reviewy-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-2'
+  app: 'restaurant-reviewy'
+  env: 'RestaurantReviewy-env'
+  bucket_name: 'elasticbeanstalk-us-east-2-131698153616'
+  bucket_path: 'restaurant-reviewy'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
