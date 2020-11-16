@@ -7,7 +7,7 @@ before_install:
 script:
   - docker run -e CI=true jblanch94/client-test npm test
 
-after_install:
+after_success:
   - docker build -t jblanch94/reviewy-client ./client
   - docker build -t jblanch94/reviewy-api ./server
   - docker build -t jblanch94/reviewy-nginx ./nginx
