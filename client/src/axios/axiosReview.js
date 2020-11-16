@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosAuth from './axiosAuth';
 
 const axiosReview = axios.create({
-  baseURL: '/api/restaurant-reviewy/reviews',
+  baseURL: '/api/reviews',
 });
 
 axiosReview.interceptors.response.use(

@@ -79,6 +79,7 @@ router.post('/register', async (req, res) => {
     res.cookie('refresh-token', jwtGenerator(newUser.rows[0].user_id, '20m'), {
       httpOnly: true,
     });
+    console.log(newUser.rows[0]);
     res.status(201).json({ token });
   } catch (err) {
     return res.status(500).send(err.message);
@@ -86,6 +87,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+  console.log('hit the login route');
   //destructure the body for username and password
   const { username, password } = req.body;
 

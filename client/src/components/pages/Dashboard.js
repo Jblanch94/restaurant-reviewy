@@ -8,7 +8,6 @@ import useStyles from 'assets/styles/Dashboard';
 
 const Dashboard = ({ user, restaurants }) => {
   const classes = useStyles();
-  console.log('user', user);
 
   function renderRestaurantCards() {
     return restaurants.map(

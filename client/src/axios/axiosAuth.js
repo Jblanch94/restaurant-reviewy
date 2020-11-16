@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axiosAuth = axios.create({ baseURL: '/api/restaurant-reviewy/auth' });
+const axiosAuth = axios.create({ baseURL: '/api/auth' });
 
 axiosAuth.interceptors.response.use(
   (response) => {

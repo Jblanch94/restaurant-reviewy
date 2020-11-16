@@ -1,4 +1,4 @@
-CREATE TABLE Restaurant (
+CREATE TABLE Restaurants (
     restaurant_id SERIAL PRIMARY KEY,
     restaurtant_name VARCHAR(255) NOT NULL,
     restaurant_city VARCHAR(255) NOT NULL,

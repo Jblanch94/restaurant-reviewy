@@ -10,7 +10,8 @@ export const getAllRestaurants = () => {
         payload: response.data,
       });
     } catch (err) {
-      dispatch({ type: types.ERROR, payload: err.response });
+      console.error(err.message);
+      // dispatch({ type: types.ERROR, payload: err.response });
     }
   };
 };
