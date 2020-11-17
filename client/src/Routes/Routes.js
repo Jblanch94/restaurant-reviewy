@@ -23,35 +23,37 @@ const ReviewFormContainer = lazy(() =>
 const Routes = ({ user, auth }) => {
   return (
     <Router>
-      <NavbarContainer user={user} auth={auth} />
-      <Switch>
-        <Route path="/" exact component={DashboardContainer} />
+      <Suspense fallback={'loading...'}>
+        <NavbarContainer user={user} auth={auth} />
+        <Switch>
+          <Route path="/" exact component={DashboardContainer} />
 
-        <Route path="/user/register" exact>
-          <RegisterContainer />
-        </Route>
-        <Route path="/user/login" exact>
-          <LoginContainer />
-        </Route>
-        <Route
-          path="/user/dashboard/restaurant/:id"
-          render={(routeProps) => <RestaurantContainer {...routeProps} />}
-        />
-        <Route path="/user/review" exact>
-          <ReviewFormContainer />
-        </Route>
-        <Route
-          exact
-          path="/admin/restaurant-form"
-          render={() =>
-            user.isadmin ? (
-              <AdminRestaurantFormContainer />
-            ) : (
-              <Redirect to="/" />
-            )
-          }
-        />
-      </Switch>
+          <Route path="/user/register" exact>
+            <RegisterContainer />
+          </Route>
+          <Route path="/user/login" exact>
+            <LoginContainer />
+          </Route>
+          <Route
+            path="/user/dashboard/restaurant/:id"
+            render={(routeProps) => <RestaurantContainer {...routeProps} />}
+          />
+          <Route path="/user/review" exact>
+            <ReviewFormContainer />
+          </Route>
+          <Route
+            exact
+            path="/admin/restaurant-form"
+            render={() =>
+              user.isadmin ? (
+                <AdminRestaurantFormContainer />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+        </Switch>
+      </Suspense>
     </Router>
   );
 };
