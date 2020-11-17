@@ -12,8 +12,14 @@ if (process.env.ENV === 'production') {
   });
 } else {
   pool = new pg.Pool({
-    connectionString: keys.PG_CONNECTION_STRING,
+    host: 'localhost',
+    user: 'postgres',
+    password: 'Jblanch94!',
+    database: 'restaurant-reviewy',
+    port: 5432,
   });
 }
+
+console.log(pool);
 
 module.exports = pool;

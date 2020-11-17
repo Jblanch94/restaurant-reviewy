@@ -9,7 +9,6 @@ const Restaurant = ({ reviews }) => {
         <ReviewCard
           key={review.review_id}
           review={review.review}
-          user={review.user_id}
           rating={review.stars}
         />
       );
