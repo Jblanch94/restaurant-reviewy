@@ -6,27 +6,19 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import DashboardContainer from 'containers/DashboardContainer';
-import RegisterContainer from 'containers/RegisterContainer';
-import LoginContainer from 'containers/LoginContainer';
-import AdminRestaurantFormContainer from 'containers/AdminRestaurantFormContainer';
-import NavbarContainer from 'containers/NavbarContainer';
-import RestaurantContainer from 'containers/RestaurantContainer';
-import ReviewFormContainer from 'containers/ReviewFormContainer';
-
-// const DashboardContainer = lazy(() => import('containers/DashboardContainer'));
-// const RegisterContainer = lazy(() => import('containers/RegisterContainer'));
-// const LoginContainer = lazy(() => import('containers/LoginContainer'));
-// const AdminRestaurantFormContainer = lazy(() =>
-//   import('containers/AdminRestaurantFormContainer')
-// );
-// const NavbarContainer = lazy(() => import('containers/NavbarContainer'));
-// const RestaurantContainer = lazy(() =>
-//   import('containers/RestaurantContainer')
-// );
-// const ReviewFormContainer = lazy(() =>
-//   import('containers/ReviewFormContainer')
-// );
+const DashboardContainer = lazy(() => import('containers/DashboardContainer'));
+const RegisterContainer = lazy(() => import('containers/RegisterContainer'));
+const LoginContainer = lazy(() => import('containers/LoginContainer'));
+const AdminRestaurantFormContainer = lazy(() =>
+  import('containers/AdminRestaurantFormContainer')
+);
+const NavbarContainer = lazy(() => import('containers/NavbarContainer'));
+const RestaurantContainer = lazy(() =>
+  import('containers/RestaurantContainer')
+);
+const ReviewFormContainer = lazy(() =>
+  import('containers/ReviewFormContainer')
+);
 
 const Routes = ({ user, auth }) => {
   return (

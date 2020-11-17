@@ -1,3 +1,5 @@
+#TODO: configure security group to see if it fixes server issue
+
 services:
   - docker
 
