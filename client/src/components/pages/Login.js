@@ -1,5 +1,15 @@
 import React from 'react';
-import { TextField, Container, Grid, Button } from '@material-ui/core';
+import {
+  TextField,
+  Container,
+  Grid,
+  Button,
+  Typography,
+  Paper,
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
+import useStyles from 'assets/styles/Login';
 
 const Login = ({
   auth,
@@ -9,6 +19,8 @@ const Login = ({
   onFormSubmit,
   functions,
 }) => {
+  const classes = useStyles();
+
   return (
     <Container maxWidth="sm" component="section">
       <form autoComplete="false" onSubmit={onFormSubmit}>
@@ -44,9 +56,23 @@ const Login = ({
               helperText={auth.error}
             />
           </Grid>
+
           <Button variant="contained" type="submit" color="primary" fullWidth>
             Login
           </Button>
+          <Container className={classes.container}>
+            <Paper className={classes.paper}>
+              <Typography variant="body1" component="p">
+                Dont have an account?
+              </Typography>
+
+              <Link to="/user/register" className={classes.link}>
+                <Typography variant="body1" component="p">
+                  Sign Up
+                </Typography>
+              </Link>
+            </Paper>
+          </Container>
         </Grid>
       </form>
     </Container>
