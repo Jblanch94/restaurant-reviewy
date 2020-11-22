@@ -6,9 +6,17 @@ import {
   Button,
 } from '@material-ui/core';
 
-import useStyles from 'assets/styles/ProfileForm';
+import useStyles from '../../assets/styles/ProfileForm';
 
-const ProfileForm = ({
+type ProfileFormProps = {
+  user: { first_name: string; last_name: string; review_count: string };
+  username: string;
+  handleModalClick: () => void;
+  handleChange: () => void;
+  onFormSubmit: () => void;
+};
+
+const ProfileForm: React.FC<ProfileFormProps> = ({
   user,
   username,
   handleModalClick,
@@ -17,7 +25,13 @@ const ProfileForm = ({
 }) => {
   const classes = useStyles();
 
-  function renderTextField(id, label, disabled, value, fn) {
+  function renderTextField(
+    id: string,
+    label: string,
+    disabled: boolean,
+    value: string,
+    fn?: () => void
+  ): React.ReactNode {
     return (
       <TextField
         id={id}

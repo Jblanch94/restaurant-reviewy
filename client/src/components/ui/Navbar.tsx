@@ -3,14 +3,32 @@ import { Link } from 'react-router-dom';
 import RestaurantMenuSharpIcon from '@material-ui/icons/RestaurantMenuSharp';
 import { AppBar, Toolbar } from '@material-ui/core';
 
-import AvatarMenu from 'components/ui/AvatarMenu';
-import LinkText from 'components/ui/LinkText';
-import useStyles from 'assets/styles/Navbar';
+import AvatarMenu from './AvatarMenu';
+import LinkText from './LinkText';
+import useStyles from '../../assets/styles/Navbar';
 
-const Navbar = ({ user, auth, logout, dispatch }) => {
+type NavbarProps = {
+  user: {
+    isadmin: boolean;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    username: string;
+    review_count: number;
+  };
+  auth: {};
+  logout: () => void;
+  dispatch: () => void;
+  classes: {
+    link?: string;
+    text?: string;
+  };
+};
+
+const Navbar: React.FC<NavbarProps> = ({ user, auth, logout, dispatch }) => {
   const classes = useStyles();
 
-  function renderWriteReview() {
+  function renderWriteReview(): React.ReactNode {
     if (!user.isadmin) {
       return (
         <div className={classes.writeReview}>
@@ -25,7 +43,7 @@ const Navbar = ({ user, auth, logout, dispatch }) => {
     } else return null;
   }
 
-  function renderSignIn() {
+  function renderSignIn(): React.ReactNode {
     return (
       <LinkText
         path="/user/login"
@@ -36,7 +54,7 @@ const Navbar = ({ user, auth, logout, dispatch }) => {
     );
   }
 
-  function renderLoggedInUser() {
+  function renderLoggedInUser(): React.ReactNode {
     const token = sessionStorage.getItem('token');
     return (
       <AppBar position="static">
@@ -56,7 +74,12 @@ const Navbar = ({ user, auth, logout, dispatch }) => {
           {!token ? (
             renderSignIn()
           ) : (
-            <AvatarMenu user={user} logout={logout} dispatch={dispatch} />
+            <AvatarMenu
+              user={user}
+              logout={logout}
+              dispatch={dispatch}
+              auth={auth}
+            />
           )}
         </Toolbar>
       </AppBar>

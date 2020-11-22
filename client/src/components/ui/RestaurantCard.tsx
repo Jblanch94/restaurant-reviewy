@@ -1,26 +1,38 @@
 import React from 'react';
-// import {
-//   Card,
-//   CardContent,
-//   CardActions,
-//   Button,
-//   Typography,
-//   Container,
-// } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Typography,
+  Container,
+} from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 
-import useStyles from 'assets/styles/RestaurantCard';
+import useStyles from '../../assets/styles/RestaurantCard';
 
-const RestaurantCard = ({ id, name, city, state, rating, user }) => {
+type RestaurantCardProps = {
+  id: number;
+  name: string;
+  city: string;
+  state: string;
+  rating: string;
+  user: {
+    isadmin: boolean;
+  };
+};
+
+const RestaurantCard: React.FC<RestaurantCardProps> = ({
+  id,
+  name,
+  city,
+  state,
+  rating,
+  user,
+}) => {
   const classes = useStyles();
-  function renderUserLink() {
+  function renderUserLink(): React.ReactNode {
     if (!user.isadmin) {
       return (
         <Container>

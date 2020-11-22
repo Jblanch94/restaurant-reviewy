@@ -37,3 +37,14 @@ export const updateUser = (formValues) => {
     }
   };
 };
+
+export const fetchUserById = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axiosUser.get(`/${id}`);
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+};

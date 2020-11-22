@@ -10,7 +10,6 @@ const router = express.Router();
 router.get('/', authorization, async (req, res) => {
   //get the userid
   const { userId } = req.user;
-  console.log('user', userId);
 
   try {
     //find user by id
@@ -88,5 +87,18 @@ router.get(
     }
   }
 );
+
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const query =
+      'SELECT user_id, first_name, last_name, username, review_count FROM users WHERE user_id = $1';
+    const user = await db.query(query, [id]);
+    res.json(user.rows[0]);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 module.exports = router;

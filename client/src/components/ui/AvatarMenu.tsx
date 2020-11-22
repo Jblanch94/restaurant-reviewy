@@ -1,25 +1,37 @@
 import React, { useState } from 'react';
 import { Avatar, Menu, MenuItem, Dialog } from '@material-ui/core';
 
-import ProfileFormContainer from 'containers/ProfileFormContainer';
+import ProfileFormContainer from '../../containers/ProfileFormContainer';
 
-const AvatarMenu = ({ user, auth, logout, dispatch }) => {
+type AvatarMenuProps = {
+  user: {};
+  auth: {};
+  logout: () => void;
+  dispatch: (args: any) => void;
+};
+
+const AvatarMenu: React.FC<AvatarMenuProps> = ({
+  user,
+  auth,
+  logout,
+  dispatch,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMenuClick = () => setMenuOpen(!menuOpen);
+  const handleMenuClick = (): void => setMenuOpen(!menuOpen);
 
-  const onOpenOrClose = (evt) => {
+  const onOpenOrClose = (evt: any): void => {
     setAnchorEl(evt.currentTarget);
     handleMenuClick();
   };
 
-  const handleModalClick = () => setModalOpen(!modalOpen);
+  const handleModalClick = (): void => setModalOpen(!modalOpen);
 
   return (
     <div>
-      <Avatar id="avatar" onClick={onOpenOrClose}></Avatar>
+      <Avatar id="avatar" onClick={onOpenOrClose} />
       <Menu
         id="avatar-menu"
         anchorEl={anchorEl}
