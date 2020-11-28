@@ -1,5 +1,5 @@
 import types from './types';
-import axiosUser from 'axios/axiosUser';
+import axiosUser from '../axios/axiosUser';
 
 export const fetchUser = () => {
   return async (dispatch) => {

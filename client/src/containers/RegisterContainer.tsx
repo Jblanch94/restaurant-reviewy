@@ -3,10 +3,17 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 
-import { registerUser } from 'actions/authActions';
-import Register from 'components/pages/Register';
+import { registerUser } from '../actions/authActions';
+import Register from '../components/pages/Register';
 
-const RegisterContainer = () => {
+type errors = {
+  first_name: string;
+  last_name: string;
+  username: string;
+  password: string;
+};
+
+const RegisterContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [first_name, setFirstName] = useState('');
@@ -15,11 +22,19 @@ const RegisterContainer = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
-  const onHandleChange = (evt, fn) => fn(evt.target.value);
+  const onHandleChange = (
+    evt: React.ChangeEvent<HTMLInputElement>,
+    fn: (e: any) => void
+  ) => fn(evt.target.value);
 
   //validate form fields
   const formValidation = () => {
-    let errors = {};
+    let errors: errors = {
+      first_name: '',
+      last_name: '',
+      username: '',
+      password: '',
+    };
     //check that first name and last name is not empty
     if (first_name.length === 0) {
       errors.first_name = 'Must provide a first name!';
@@ -39,7 +54,7 @@ const RegisterContainer = () => {
     return errors;
   };
 
-  const onFormSubmit = (evt) => {
+  const onFormSubmit = (evt: React.FormEvent) => {
     //prevent refresh of page
     evt.preventDefault();
 

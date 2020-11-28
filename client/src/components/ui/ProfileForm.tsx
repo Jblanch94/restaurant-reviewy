@@ -12,8 +12,8 @@ type ProfileFormProps = {
   user: { first_name: string; last_name: string; review_count: string };
   username: string;
   handleModalClick: () => void;
-  handleChange: () => void;
-  onFormSubmit: () => void;
+  handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  onFormSubmit: (e: React.FormEvent) => void;
 };
 
 const ProfileForm: React.FC<ProfileFormProps> = ({
@@ -30,7 +30,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     label: string,
     disabled: boolean,
     value: string,
-    fn?: () => void
+    fn?: (evt: React.ChangeEvent<HTMLInputElement>) => void
   ): React.ReactNode {
     return (
       <TextField

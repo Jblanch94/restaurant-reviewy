@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchRestaurantReviews } from 'actions/reviewActions';
-import Restaurant from 'components/pages/Restaurant';
+import { fetchRestaurantReviews } from '../actions/reviewActions';
+import { RootState } from '../reducers';
+import Restaurant from '../components/pages/Restaurant';
 
-const RestaurantContainer = (props) => {
-  const reviews = useSelector((state) => state.reviews);
+const RestaurantContainer: React.FC = (props: any) => {
+  const reviews = useSelector((state: RootState) => state.reviews);
   const dispatch = useDispatch();
 
   useEffect(() => {

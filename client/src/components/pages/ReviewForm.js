@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 
-import useStyles from 'assets/styles/ReviewForm';
+import useStyles from '../../assets/styles/ReviewForm';
 
 const ReviewForm = ({
   restaurants,

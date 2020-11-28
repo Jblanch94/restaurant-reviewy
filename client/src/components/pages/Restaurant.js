@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReviewCard from '../ui/ReviewCard';
 
-const Restaurant = ({ reviews, dispatch, fetchUserById }) => {
+const Restaurant = ({ reviews }) => {
   const renderContent = () => {
     return reviews.map((review) => {
       return (

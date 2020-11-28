@@ -1,5 +1,5 @@
 import types from './types';
-import axiosAuth from 'axios/axiosAuth';
+import axiosAuth from '../axios/axiosAuth';
 
 export const registerUser = (formValues, history) => {
   return async (dispatch) => {

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchUser } from 'actions/userActions';
-import { isAuthenticated } from 'actions/authActions';
-import 'App/App.css';
-import Routes from 'Routes/Routes';
+import { fetchUser } from '../actions/userActions';
+import { isAuthenticated } from '../actions/authActions';
+import './App.css';
+import Routes from '../Routes/Routes';
 
 const App = () => {
   const dispatch = useDispatch();

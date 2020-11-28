@@ -6,18 +6,20 @@ import {
   Switch,
 } from 'react-router-dom';
 
-const DashboardContainer = lazy(() => import('containers/DashboardContainer'));
-const RegisterContainer = lazy(() => import('containers/RegisterContainer'));
-const LoginContainer = lazy(() => import('containers/LoginContainer'));
-const AdminRestaurantFormContainer = lazy(() =>
-  import('containers/AdminRestaurantFormContainer')
+const DashboardContainer = lazy(() =>
+  import('../containers/DashboardContainer')
 );
-const NavbarContainer = lazy(() => import('containers/NavbarContainer'));
+const RegisterContainer = lazy(() => import('../containers/RegisterContainer'));
+const LoginContainer = lazy(() => import('../containers/LoginContainer'));
+const AdminRestaurantFormContainer = lazy(() =>
+  import('../containers/AdminRestaurantFormContainer')
+);
+const NavbarContainer = lazy(() => import('../containers/NavbarContainer'));
 const RestaurantContainer = lazy(() =>
-  import('containers/RestaurantContainer')
+  import('../containers/RestaurantContainer')
 );
 const ReviewFormContainer = lazy(() =>
-  import('containers/ReviewFormContainer')
+  import('../containers/ReviewFormContainer')
 );
 
 const Routes = ({ user, auth }) => {

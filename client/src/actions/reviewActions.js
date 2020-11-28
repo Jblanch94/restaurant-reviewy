@@ -1,5 +1,5 @@
 import types from './types';
-import axiosReview from 'axios/axiosReview';
+import axiosReview from '../axios/axiosReview';
 
 export const fetchRestaurantReviews = (id) => {
   return async (dispatch) => {

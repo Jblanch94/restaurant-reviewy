@@ -1,5 +1,5 @@
 import types from './types';
-import axiosRestaurant from 'axios/axiosRestaurant';
+import axiosRestaurant from '../axios/axiosRestaurant';
 
 export const getAllRestaurants = () => {
   return async (dispatch) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, Container, Grid, Button } from '@material-ui/core';
 
-import useStyles from 'assets/styles/Register';
+import useStyles from '../../assets/styles/Register';
 
 const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
   const classes = useStyles();

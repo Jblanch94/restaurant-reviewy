@@ -10,7 +10,7 @@ import {
   CssBaseline,
 } from '@material-ui/core';
 
-import states from 'assets/states';
+import states from '../assets/states';
 
 const AdminRestaurantForm = ({
   values,

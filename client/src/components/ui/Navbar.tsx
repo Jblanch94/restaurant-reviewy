@@ -8,18 +8,11 @@ import LinkText from './LinkText';
 import useStyles from '../../assets/styles/Navbar';
 
 type NavbarProps = {
-  user: {
-    isadmin: boolean;
-    user_id: number;
-    first_name: string;
-    last_name: string;
-    username: string;
-    review_count: number;
-  };
-  auth: {};
+  user: any;
+  auth: any;
   logout: () => void;
-  dispatch: () => void;
-  classes: {
+  dispatch: any;
+  classes?: {
     link?: string;
     text?: string;
   };

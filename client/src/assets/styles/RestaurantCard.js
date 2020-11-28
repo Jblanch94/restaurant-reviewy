@@ -6,6 +6,14 @@ const useStyles = makeStyles(
       margin: '5rem',
       maxWidth: 500,
       minWidth: 500,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: 300,
+        minWidth: 300,
+      },
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: 250,
+        minWidth: 250,
+      },
     },
 
     cardContentContainer: {
@@ -16,6 +24,9 @@ const useStyles = makeStyles(
 
     ratingContainer: {
       marginLeft: theme.spacing(2),
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(3),
     },
   }),
   { index: 1 }

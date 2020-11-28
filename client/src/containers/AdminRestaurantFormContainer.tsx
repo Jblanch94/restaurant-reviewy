@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import AdminRestaurantForm from 'AdminRestaurantForm/AdminRestaurantForm';
-import { addRestaurant } from 'actions/restaurantActions';
+import AdminRestaurantForm from '../AdminRestaurantForm/AdminRestaurantForm';
+import { addRestaurant } from '../actions/restaurantActions';
 
-const AdminRestaurantFormContainer = () => {
+const AdminRestaurantFormContainer: React.FC = () => {
   //hooks to get access to history and dispatch
   const history = useHistory();
   const dispatch = useDispatch();
@@ -15,14 +15,18 @@ const AdminRestaurantFormContainer = () => {
   const [city, setCity] = useState('');
   const [zipcode, setZipcode] = useState('');
 
-  function handleChange(fn, evt) {
+  //fix evt type
+  function handleChange(
+    fn: (e: React.FormEvent<HTMLInputElement>) => void,
+    evt: any
+  ) {
     fn(evt.target.value);
   }
 
-  function handleSubmit(evt) {
+  function handleSubmit(evt: React.FormEvent<HTMLElement>): void {
     evt.preventDefault();
 
-    const formValues = {
+    const formValues: {} = {
       restaurant_name: name,
       restaurant_city: city,
       restaurant_state: state,

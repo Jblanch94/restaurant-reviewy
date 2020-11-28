@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-import useStyles from 'assets/styles/Login';
+import useStyles from '../../assets/styles/Login';
 
 const Login = ({
   auth,

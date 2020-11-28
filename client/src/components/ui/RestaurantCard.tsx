@@ -32,6 +32,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
   user,
 }) => {
   const classes = useStyles();
+
   function renderUserLink(): React.ReactNode {
     if (!user.isadmin) {
       return (

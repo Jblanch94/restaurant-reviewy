@@ -4,7 +4,7 @@ import { Fab } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
 import RestaurantCard from '../ui/RestaurantCard';
-import useStyles from 'assets/styles/Dashboard';
+import useStyles from '../../assets/styles/Dashboard';
 
 const Dashboard = ({ user, restaurants }) => {
   const classes = useStyles();

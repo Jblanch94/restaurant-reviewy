@@ -2,20 +2,24 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { loginUser } from 'actions/authActions';
-import Login from 'components/pages/Login';
+import { loginUser } from '../actions/authActions';
+import { RootState } from '../reducers';
+import Login from '../components/pages/Login';
 
-const LoginContainer = () => {
-  const auth = useSelector((state) => state.auth);
+const LoginContainer: React.FC = () => {
+  const auth = useSelector((state: RootState) => state.auth);
   const history = useHistory();
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const onHandleChange = (evt, fn) => fn(evt.target.value);
+  const onHandleChange = (
+    evt: any,
+    fn: (e: React.FormEvent<HTMLInputElement>) => void
+  ) => fn(evt.target.value);
 
-  const onFormSubmit = (evt) => {
+  const onFormSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
     dispatch(loginUser({ username, password }, history));
   };
