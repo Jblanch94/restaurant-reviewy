@@ -13,7 +13,14 @@ const useStyles = makeStyles((theme) => ({
     color: '#3F51B5',
   },
   paper: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(2),
+  },
+  header: {
+    marginTop: theme.spacing(2),
+  },
+  grid: {
+    marginTop: theme.spacing(4),
+    justifyContent: 'center',
   },
 }));
 

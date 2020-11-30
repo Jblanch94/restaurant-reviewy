@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import _ from 'lodash';
 
 import { registerUser } from '../actions/authActions';
 import Register from '../components/pages/Register';
@@ -63,7 +62,12 @@ const RegisterContainer: React.FC = () => {
     setErrors(formErrors);
 
     //if there are no errors then make api request and clear fields
-    if (_.keys(formErrors).length === 0) {
+    if (
+      formErrors.first_name === '' &&
+      formErrors.last_name === '' &&
+      formErrors.username === '' &&
+      formErrors.password === ''
+    ) {
       dispatch(
         registerUser(
           {

@@ -24,8 +24,13 @@ const Login = ({
   return (
     <Container maxWidth="sm" component="section">
       <form autoComplete="false" onSubmit={onFormSubmit}>
-        <h1 style={{ textAlign: 'center', fontSize: '2rem' }}>Login</h1>
-        <Grid container spacing={2}>
+        <h1
+          style={{ textAlign: 'center', fontSize: '2rem' }}
+          className={classes.header}
+        >
+          Login
+        </h1>
+        <Grid container spacing={3} className={classes.grid}>
           <Grid item sm={12}>
             <TextField
               variant="outlined"

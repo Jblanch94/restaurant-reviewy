@@ -11,7 +11,7 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
       <h1 className={classes.formHeader}>REGISTER</h1>
       <form autoComplete="false" onSubmit={onFormSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={6}>
             <TextField
               error={values.errors.first_name !== undefined}
               helperText={values.errors.first_name}
@@ -26,7 +26,7 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               autoFocus
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={6}>
             <TextField
               error={values.errors.last_name !== undefined}
               helperText={values.errors.last_name}
