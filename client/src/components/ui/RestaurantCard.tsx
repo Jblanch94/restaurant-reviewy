@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import useStyles from '../../assets/styles/RestaurantCard';
+import { User } from '../../assets/types';
 
 type RestaurantCardProps = {
   id: number;
@@ -18,9 +19,7 @@ type RestaurantCardProps = {
   city: string;
   state: string;
   rating: string;
-  user: {
-    isadmin: boolean;
-  };
+  user: User;
 };
 
 const RestaurantCard: React.FC<RestaurantCardProps> = ({

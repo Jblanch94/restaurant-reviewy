@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 
-const db = require("../db/config");
-const authorization = require("../middlewares/authorization");
+const db = require('../db/config');
+const authorization = require('../middlewares/authorization');
 
 const router = express.Router();
 
-router.post("/restaurant/:id", authorization, async (req, res) => {
+router.post('/restaurant/:id', authorization, async (req, res) => {
   const { id } = req.params;
   const { userId } = req.user;
   const { stars, review } = req.body;
@@ -13,15 +13,15 @@ router.post("/restaurant/:id", authorization, async (req, res) => {
   try {
     //find restaurant by id
     const fetchRestaurantQuery =
-      "SELECT * FROM Restaurants WHERE restaurant_id = $1";
+      'SELECT * FROM Restaurants WHERE restaurant_id = $1';
     const restaurant = await db.query(fetchRestaurantQuery, [id]);
     //send back error if restaurant does not exist
     if (restaurant.rows.length === 0) {
-      return res.status(404).send("Restaurant does not exist!");
+      return res.status(404).send('Restaurant does not exist!');
     }
     //insert review into db with correct user id and restaurant id
     const insertReviewQuery =
-      "INSERT INTO Reviews (stars, review, user_id, restaurant_id) VALUES($1, $2, $3, $4) RETURNING *";
+      'INSERT INTO Reviews (stars, review, user_id, restaurant_id) VALUES($1, $2, $3, $4) RETURNING *';
     const newReview = await db.query(insertReviewQuery, [
       stars,
       review,
@@ -30,9 +30,9 @@ router.post("/restaurant/:id", authorization, async (req, res) => {
     ]);
 
     //find user by id and increment the review count
-    const fetchUserQuery = "SELECT review_count FROM Users WHERE user_id = $1";
+    const fetchUserQuery = 'SELECT review_count FROM Users WHERE user_id = $1';
     const updateReviewCountQuery =
-      "UPDATE Users SET review_count = $1 + 1 WHERE user_id = $2";
+      'UPDATE Users SET review_count = $1 + 1 WHERE user_id = $2';
     const currentUser = await db.query(fetchUserQuery, [userId]);
     await db.query(updateReviewCountQuery, [
       currentUser.rows[0].review_count,
@@ -45,23 +45,32 @@ router.post("/restaurant/:id", authorization, async (req, res) => {
   }
 });
 
-router.get("/restaurant/all-reviews", async (req, res) => {
+router.get('/restaurant/all-reviews', async (req, res) => {
   try {
-    const getReviewsQuery =
-      "SELECT rest.*, rev.* FROM Restaurants rest JOIN Reviews rev ON rev.restaurant_id = rest.restaurant_id";
-    const response = await db.query(getReviewsQuery);
-    res.json(response.rows);
+    //query to get review, average rating and restaurant details
+    const query = `SELECT rest.*, rev.*, r.avg_rating
+    FROM restaurants rest
+    JOIN reviews rev ON rev.restaurant_id = rest.restaurant_id
+    JOIN (
+      SELECT restaurant_id, AVG(stars)::INTEGER AS avg_rating
+      FROM reviews
+      GROUP BY restaurant_id
+    ) AS r ON r.restaurant_id = rev.restaurant_id`;
+    const response = await db.query(query);
+    const data = response.rows;
+
+    res.json(data);
   } catch (err) {
     res.status(500).send(err.message);
   }
 });
 
-router.get("/restaurant/:restaurantId", async (req, res) => {
+router.get('/restaurant/:restaurantId', async (req, res) => {
   const { restaurantId } = req.params;
 
   try {
     const fetchRestaurantReviewsQuery =
-      "SELECT rest.*, rev.* FROM Restaurants rest JOIN Reviews rev ON rev.restaurant_id = rest.restaurant_id WHERE rest.restaurant_id = $1";
+      'SELECT rest.*, rev.* FROM Restaurants rest JOIN Reviews rev ON rev.restaurant_id = rest.restaurant_id WHERE rest.restaurant_id = $1';
     const response = await db.query(fetchRestaurantReviewsQuery, [
       restaurantId,
     ]);
@@ -71,13 +80,13 @@ router.get("/restaurant/:restaurantId", async (req, res) => {
   }
 });
 
-router.patch("/:reviewId", async (req, res) => {
+router.patch('/:reviewId', async (req, res) => {
   const { reviewId } = req.params;
 
   try {
-    const fetchReviewQuery = "SELECT useful FROM Reviews WHERE review_id = $1";
+    const fetchReviewQuery = 'SELECT useful FROM Reviews WHERE review_id = $1';
     const updateUsefulQuery =
-      "UPDATE Reviews SET useful = $1 + 1 WHERE review_id = $2 RETURNING * ";
+      'UPDATE Reviews SET useful = $1 + 1 WHERE review_id = $2 RETURNING * ';
     const review = await db.query(fetchReviewQuery, [reviewId]);
     const { useful } = review.rows[0];
     const updatedUseful = await db.query(updateUsefulQuery, [useful, reviewId]);

@@ -11,7 +11,24 @@ import { Link } from 'react-router-dom';
 
 import useStyles from '../../assets/styles/Login';
 
-const Login = ({
+type LoginProps = {
+  auth: {
+    error: string;
+  };
+  username: string;
+  password: string;
+  onHandleChange: (
+    e: any,
+    fn: (e: React.FormEvent<HTMLInputElement>) => void
+  ) => void;
+  onFormSubmit: (e: React.FormEvent) => void;
+  functions: {
+    setUsername: any;
+    setPassword: any;
+  };
+};
+
+const Login: React.FC<LoginProps> = ({
   auth,
   username,
   password,

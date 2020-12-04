@@ -5,7 +5,13 @@ import { fetchRestaurantReviews } from '../actions/reviewActions';
 import { RootState } from '../reducers';
 import Restaurant from '../components/pages/Restaurant';
 
-const RestaurantContainer: React.FC = (props: any) => {
+type RestaurantContainerProps = {
+  history: unknown;
+  location: unknown;
+  match: any;
+};
+
+const RestaurantContainer: React.FC<RestaurantContainerProps> = (props) => {
   const reviews = useSelector((state: RootState) => state.reviews);
   const dispatch = useDispatch();
 

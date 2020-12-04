@@ -43,7 +43,6 @@ router.get('/all-restaurants', async (req, res) => {
   try {
     const fetchRestaurantsQuery = 'SELECT * FROM Restaurants ';
     const restaurants = await db.query(fetchRestaurantsQuery);
-    console.log(restaurants.rows);
     res.send(restaurants.rows);
   } catch (err) {
     res.status(500).send(err.message);

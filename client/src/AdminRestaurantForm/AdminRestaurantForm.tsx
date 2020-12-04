@@ -12,7 +12,22 @@ import {
 
 import states from '../assets/states';
 
-const AdminRestaurantForm = ({
+type AdminRestaurantFormProps = {
+  values: any;
+  functions: {
+    setName: any;
+    setState: any;
+    setCity: any;
+    setZipcode: any;
+  };
+  handleChange: (
+    fn: (e: React.FormEvent<HTMLInputElement>) => void,
+    evt: any
+  ) => void;
+  handleSubmit: (evt: React.FormEvent<HTMLElement>) => void;
+};
+
+const AdminRestaurantForm: React.FC<AdminRestaurantFormProps> = ({
   values,
   functions,
   handleChange,

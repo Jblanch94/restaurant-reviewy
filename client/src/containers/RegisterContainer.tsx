@@ -4,13 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { registerUser } from '../actions/authActions';
 import Register from '../components/pages/Register';
-
-type errors = {
-  first_name: string;
-  last_name: string;
-  username: string;
-  password: string;
-};
+import { Errors } from '../assets/types';
 
 const RegisterContainer: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,12 +17,12 @@ const RegisterContainer: React.FC = () => {
 
   const onHandleChange = (
     evt: React.ChangeEvent<HTMLInputElement>,
-    fn: (e: any) => void
+    fn: (e: string) => void
   ) => fn(evt.target.value);
 
   //validate form fields
   const formValidation = () => {
-    let errors: errors = {
+    let errors: Errors = {
       first_name: '',
       last_name: '',
       username: '',

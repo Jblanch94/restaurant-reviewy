@@ -6,23 +6,30 @@ import {
   Switch,
 } from 'react-router-dom';
 
-const DashboardContainer = lazy(() =>
-  import('../containers/DashboardContainer')
+import { User, Auth } from '../assets/types';
+
+const DashboardContainer = lazy(
+  () => import('../containers/DashboardContainer')
 );
 const RegisterContainer = lazy(() => import('../containers/RegisterContainer'));
 const LoginContainer = lazy(() => import('../containers/LoginContainer'));
-const AdminRestaurantFormContainer = lazy(() =>
-  import('../containers/AdminRestaurantFormContainer')
+const AdminRestaurantFormContainer = lazy(
+  () => import('../containers/AdminRestaurantFormContainer')
 );
 const NavbarContainer = lazy(() => import('../containers/NavbarContainer'));
-const RestaurantContainer = lazy(() =>
-  import('../containers/RestaurantContainer')
+const RestaurantContainer = lazy(
+  () => import('../containers/RestaurantContainer')
 );
-const ReviewFormContainer = lazy(() =>
-  import('../containers/ReviewFormContainer')
+const ReviewFormContainer = lazy(
+  () => import('../containers/ReviewFormContainer')
 );
 
-const Routes = ({ user, auth }) => {
+type RoutesProps = {
+  user: User;
+  auth: Auth;
+};
+
+const Routes: React.FC<RoutesProps> = ({ user, auth }) => {
   return (
     <Router>
       <Suspense fallback={'loading...'}>

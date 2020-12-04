@@ -3,7 +3,34 @@ import { TextField, Container, Grid, Button } from '@material-ui/core';
 
 import useStyles from '../../assets/styles/Register';
 
-const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
+type RegisterProps = {
+  onHandleChange: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    fn: (e: string) => void
+  ) => void;
+  onFormSubmit: (e: React.FormEvent) => void;
+  functions: {
+    setFirstName: React.Dispatch<React.SetStateAction<string>>;
+    setPassword: React.Dispatch<React.SetStateAction<string>>;
+    setLastName: React.Dispatch<React.SetStateAction<string>>;
+    setUsername: React.Dispatch<React.SetStateAction<string>>;
+    setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  };
+  values: {
+    first_name: string;
+    last_name: string;
+    username: string;
+    password: string;
+    errors: any;
+  };
+};
+
+const Register: React.FC<RegisterProps> = ({
+  onHandleChange,
+  onFormSubmit,
+  functions,
+  values,
+}) => {
   const classes = useStyles();
 
   return (
@@ -20,7 +47,9 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="first_name"
               name="first_name"
               type="text"
-              onChange={(evt) => onHandleChange(evt, functions.setFirstName)}
+              onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                onHandleChange(evt, functions.setFirstName)
+              }
               value={values.first_name}
               required
               autoFocus
@@ -35,7 +64,9 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="last_name"
               name="last_name"
               type="text"
-              onChange={(evt) => onHandleChange(evt, functions.setLastName)}
+              onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                onHandleChange(evt, functions.setLastName)
+              }
               value={values.last_name}
               required
             />
@@ -49,7 +80,9 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="username"
               name="username"
               type="text"
-              onChange={(evt) => onHandleChange(evt, functions.setUsername)}
+              onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                onHandleChange(evt, functions.setUsername)
+              }
               value={values.username}
               required
               fullWidth
@@ -64,7 +97,9 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="password"
               name="password"
               type="password"
-              onChange={(evt) => onHandleChange(evt, functions.setPassword)}
+              onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                onHandleChange(evt, functions.setPassword)
+              }
               value={values.password}
               required
               fullWidth

@@ -6,10 +6,11 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import AvatarMenu from './AvatarMenu';
 import LinkText from './LinkText';
 import useStyles from '../../assets/styles/Navbar';
+import { User, Auth } from '../../assets/types';
 
 type NavbarProps = {
-  user: any;
-  auth: any;
+  user: User;
+  auth: Auth;
   logout: () => void;
   dispatch: any;
   classes?: {
