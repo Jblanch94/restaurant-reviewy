@@ -10,6 +10,8 @@ const DashboardContainer: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
+  console.log('restaurants', restaurants);
+
   useEffect(() => {
     dispatch(getAllRestaurants());
   }, [dispatch]);

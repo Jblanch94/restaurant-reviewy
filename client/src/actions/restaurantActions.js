@@ -11,7 +11,6 @@ export const getAllRestaurants = () => {
       });
     } catch (err) {
       console.error(err.message);
-      // dispatch({ type: types.ERROR, payload: err.response });
     }
   };
 };

@@ -24,7 +24,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, restaurants }) => {
         restaurant_name,
         restaurant_city,
         restaurant_state,
-        rating,
+        avg_rating,
       }: any) => {
         return (
           <RestaurantCard
@@ -33,7 +33,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, restaurants }) => {
             name={restaurant_name}
             city={restaurant_city}
             state={restaurant_state}
-            rating={rating}
+            avg_rating={avg_rating}
             user={user}
           />
         );

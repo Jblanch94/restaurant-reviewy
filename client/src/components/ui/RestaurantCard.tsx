@@ -7,6 +7,7 @@ import {
   Typography,
   Container,
 } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 
 import { Link } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ type RestaurantCardProps = {
   name: string;
   city: string;
   state: string;
-  rating: string;
+  avg_rating: string;
   user: User;
 };
 
@@ -27,7 +28,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
   name,
   city,
   state,
-  rating,
+  avg_rating,
   user,
 }) => {
   const classes = useStyles();
@@ -62,9 +63,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
             </Typography>
           </div>
           <div className={classes.ratingContainer}>
-            <Typography component="p" variant="body2" color="textSecondary">
-              Average Rating: {rating}
-            </Typography>
+            <Rating name="average rating" value={parseInt(avg_rating)} />
           </div>
         </Container>
       </CardContent>
