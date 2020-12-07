@@ -86,9 +86,7 @@ const loginUser = async (req, res) => {
 
   try {
     const authService = new AuthService();
-    const user = await authService.authenticateUser({ username, password });
-
-    console.log(user);
+    const user = await authService.authenticateUser(req.body);
 
     if (user.type === 'error') {
       throw user;

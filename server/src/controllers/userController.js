@@ -1,18 +1,13 @@
-const bcrypt = require('bcrypt');
-const db = require('../db/config');
+const UserService = require('../services/UserService');
+const User = require('../models/User');
 
 const fetchCurrentUser = async (req, res) => {
-  //get the userid
-  const { userId } = req.user;
-
   try {
-    //find user by id
-    const query =
-      'SELECT user_id, first_name, last_name, username, review_count, isAdmin FROM Users WHERE user_id = $1 ';
-    const user = await db.query(query, [userId]);
-
+    const userService = new UserService();
+    const user = new User(req.user);
+    const response = await userService.getCurrentUser(user);
     //send back user profile
-    const userProfile = user.rows[0];
+    const userProfile = response.rows[0];
     res.json(userProfile);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -23,23 +18,14 @@ const updateUser = async (req, res) => {
   const { userId } = req.user;
   const { username, password } = req.body;
 
+  if (!username && !password) {
+    return res.status(400).send('No updates were specified!');
+  }
+
   try {
-    if (!username && !password) {
-      return res.status(400).send('No updates were specified!');
-    }
-
-    //if username was provided
-    if (username) {
-      const usernameQuery = 'UPDATE Users SET username = $1 WHERE user_id = $2';
-      await db.query(usernameQuery, [username, userId]);
-    }
-
-    //if password was provided
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 8);
-      const passwordQuery = 'UPDATE Users SET password = $1 WHERE user_id = $2';
-      await db.query(passwordQuery, [hashedPassword, userId]);
-    }
+    const user = new User({ ...req.body, userId });
+    const userService = new UserService();
+    await userService.updateUser(user);
 
     res.send('Success!');
   } catch (err) {

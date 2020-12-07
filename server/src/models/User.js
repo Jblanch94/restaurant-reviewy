@@ -4,6 +4,7 @@ class User {
     this.last_name = user.last_name;
     this.username = user.username;
     this.password = user.password;
+    this.userId = user.userId;
   }
 }
 
