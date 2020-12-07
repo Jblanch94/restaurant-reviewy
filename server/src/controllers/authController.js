@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt');
+const User = require('../models/User');
+const AuthService = require('../services/AuthService');
 const jwtGenerator = require('../utils/jwtGenerator');
-const db = require('../db/config');
 const usernameValidation = require('../utils/validation/usernameValidation');
 const nameValidation = require('../utils/validation/nameValidation');
 const passwordValidation = require('../utils/validation/passwordValidation');
@@ -46,43 +46,31 @@ const registerUser = async (req, res) => {
       );
   }
 
-  //check if user already exists
   try {
-    const getUsernameQuery = 'SELECT username from Users where username = $1';
-    const user = await db.query(getUsernameQuery, [username]);
+    const newUser = new User(req.body);
+    const authService = new AuthService();
+    const user = await authService.createNewUser(newUser);
 
-    //if username exists send back response of user already exists
-    if (user.rows.length) {
-      return res.status(400).send('Username already exists!');
+    if (user.type === 'error') {
+      throw { user };
     }
 
-    //if username does not exist then hash password and insert user into db
-    const hashedPassword = await bcrypt.hash(password, 8);
-
-    const insertUserQuery =
-      'INSERT INTO Users (first_name, last_name, username, password) VALUES($1, $2, $3, $4) RETURNING * ';
-
-    //insert user into db with hashed password
-    const newUser = await db.query(insertUserQuery, [
-      first_name,
-      last_name,
-      username,
-      hashedPassword,
-    ]);
+    const data = user.rows[0];
 
     //generate jwt and send to user
     const token = jwtGenerator(
       {
-        userId: newUser.rows[0].user_id,
+        userId: data.user_id,
       },
       '15m'
     );
-    res.cookie('refresh-token', jwtGenerator(newUser.rows[0].user_id, '20m'), {
+    res.cookie('refresh-token', jwtGenerator({ userId: data.user_id }, '20m'), {
       httpOnly: true,
     });
     res.status(201).json({ token });
   } catch (err) {
-    return res.status(500).send(err.message);
+    const { message, statusCode } = err.user;
+    return res.status(statusCode || 500).send(message);
   }
 };
 
@@ -97,21 +85,13 @@ const loginUser = async (req, res) => {
   }
 
   try {
-    //find the user by username
-    const findByUsernameQuery =
-      'SELECT user_id, username, password FROM Users WHERE username = $1';
-    const user = await db.query(findByUsernameQuery, [username]);
+    const authService = new AuthService();
+    const user = await authService.authenticateUser({ username, password });
 
-    //if user does not exist return user does not exist
-    if (!user.rows.length) {
-      return res.status(404).send('Incorrect username or password!');
-    }
+    console.log(user);
 
-    const validPassword = await bcrypt.compare(password, user.rows[0].password);
-
-    //if password is not valid then return user does not exist
-    if (!validPassword) {
-      return res.status(404).send('Incorrect username or password!');
+    if (user.type === 'error') {
+      throw user;
     }
 
     //generate token
@@ -123,7 +103,8 @@ const loginUser = async (req, res) => {
     });
     res.json({ token });
   } catch (err) {
-    return res.status(500).send(err.message);
+    console.log(err);
+    return res.status(err.statusCode || 500).send(err.message);
   }
 };
 
