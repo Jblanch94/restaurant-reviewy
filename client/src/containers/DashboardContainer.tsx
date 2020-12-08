@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAllRestaurants } from '../actions/restaurantActions';
+import { getAllRestaurantsAndAvgRating } from '../actions/restaurantActions';
 import { RootState } from '../reducers';
 import Dashboard from '../components/pages/Dashboard';
 
@@ -13,7 +13,7 @@ const DashboardContainer: React.FC = () => {
   console.log('restaurants', restaurants);
 
   useEffect(() => {
-    dispatch(getAllRestaurants());
+    dispatch(getAllRestaurantsAndAvgRating());
   }, [dispatch]);
 
   return <Dashboard user={user} restaurants={restaurants} />;

@@ -1,14 +1,25 @@
 import types from './types';
 import axiosRestaurant from '../axios/axiosRestaurant';
 
-export const getAllRestaurants = () => {
+export const getAllRestaurantsAndAvgRating = () => {
   return async (dispatch) => {
     try {
-      const response = await axiosRestaurant.get('/all-restaurants');
+      const response = await axiosRestaurant.get('/all-restaurants-avg-rating');
       dispatch({
         type: types.FETCH_RESTAURANTS,
         payload: response.data,
       });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+};
+
+export const getAllRestaurants = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axiosRestaurant.get('/all-restaurants');
+      dispatch({ type: types.FETCH_RESTAURANTS, payload: response.data });
     } catch (err) {
       console.error(err.message);
     }
@@ -23,7 +34,7 @@ export const addRestaurant = (formValues, history) => {
           Authorization: 'Bearer ' + sessionStorage.getItem('token'),
         },
       });
-      history.push('/admin/dashboard');
+      history.push('/');
     } catch (err) {
       console.error(err.message);
     }

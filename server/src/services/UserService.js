@@ -34,6 +34,28 @@ class UserService {
       return err;
     }
   }
+
+  async fetchAllUsers() {
+    try {
+      const query =
+        'SELECT user_id, first_name, last_name, username, review_count, isadmin FROM Users';
+      const response = await db.query(query);
+      return response;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  async fetchUserById(user) {
+    try {
+      const query =
+        'SELECT user_id, first_name, last_name, username, review_count FROM users WHERE user_id = $1';
+      const response = await db.query(query, [user.userId]);
+      return response;
+    } catch (err) {
+      return err;
+    }
+  }
 }
 
 module.exports = UserService;
