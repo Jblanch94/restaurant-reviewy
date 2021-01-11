@@ -42,7 +42,7 @@ export const fetchUserById = (id) => {
   return async (dispatch) => {
     try {
       const response = await axiosUser.get(`/${id}`);
-      console.log(response);
+      dispatch({type: types.FETCH_USER_BY_ID, payload: response.data})
     } catch (error) {
       console.error(error.message);
     }

@@ -12,27 +12,7 @@ import { Rating } from '@material-ui/lab';
 
 import useStyles from '../../assets/styles/ReviewForm';
 
-type ReviewFormProps = {
-  restaurants: {
-    map?: any;
-  };
-  onHandleChange: (
-    e: any,
-    fn: (e: React.FormEvent<HTMLInputElement>) => void
-  ) => void;
-  onFormSubmit: (e: React.FormEvent) => void;
-  values: any;
-  functions: {
-    setRating: any;
-    setReview: any;
-    setSelectedRestaurant: any;
-    setRestaurantId: any;
-  };
-  onHandleSelectedRestaurantChange: (evt: any, child: any) => void;
-  onHandleRatingChange: (evt: any) => void;
-};
-
-const ReviewForm: React.FC<ReviewFormProps> = ({
+const ReviewForm = ({
   restaurants,
   onHandleChange,
   onHandleSelectedRestaurantChange,
@@ -44,7 +24,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   const classes = useStyles();
 
   const renderMenuItems = () => {
-    return restaurants.map((restaurant: any) => {
+    return restaurants.map((restaurant) => {
       return (
         <MenuItem
           key={restaurant.restaurant_id}

@@ -6,24 +6,12 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import AvatarMenu from './AvatarMenu';
 import LinkText from './LinkText';
 import useStyles from '../../assets/styles/Navbar';
-import { User, Auth } from '../../assets/types';
 
-type NavbarProps = {
-  user: User;
-  auth: Auth;
-  logout: () => void;
-  dispatch: any;
-  classes?: {
-    link?: string;
-    text?: string;
-  };
-};
-
-const Navbar: React.FC<NavbarProps> = ({ user, auth, logout, dispatch }) => {
+const Navbar = ({ user, auth, logout, dispatch }) => {
   const classes = useStyles();
 
-  function renderWriteReview(): React.ReactNode {
-    if (!user.isadmin) {
+  function renderWriteReview() {
+    if (!user.user.isadmin) {
       return (
         <div className={classes.writeReview}>
           <LinkText
@@ -37,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, auth, logout, dispatch }) => {
     } else return null;
   }
 
-  function renderSignIn(): React.ReactNode {
+  function renderSignIn() {
     return (
       <LinkText
         path="/user/login"
@@ -48,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, auth, logout, dispatch }) => {
     );
   }
 
-  function renderLoggedInUser(): React.ReactNode {
+  function renderLoggedInUser() {
     const token = sessionStorage.getItem('token');
     return (
       <AppBar position="static">

@@ -1,11 +1,18 @@
 import types from '../actions/types';
 
-export default function (state = {}, action) {
+const initialState = {
+  user: {},
+  users: [],
+};
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case types.FETCH_USER:
-      return { ...action.payload };
+      return { ...state, user: action.payload };
+    case types.FETCH_USER_BY_ID:
+      return { ...state, users: [...state.users, action.payload] };
     case types.LOGOUT:
-      return {};
+      return { ...state, user: {} };
     case types.ERROR:
       return { ...state, error: action.payload };
     default:

@@ -8,15 +8,7 @@ import {
 
 import useStyles from '../../assets/styles/ProfileForm';
 
-type ProfileFormProps = {
-  user: { first_name: string; last_name: string; review_count: string };
-  username: string;
-  handleModalClick: () => void;
-  handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
-  onFormSubmit: (e: React.FormEvent) => void;
-};
-
-const ProfileForm: React.FC<ProfileFormProps> = ({
+const ProfileForm = ({
   user,
   username,
   handleModalClick,
@@ -25,13 +17,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
 }) => {
   const classes = useStyles();
 
-  function renderTextField(
-    id: string,
-    label: string,
-    disabled: boolean,
-    value: string,
-    fn?: (evt: React.ChangeEvent<HTMLInputElement>) => void
-  ): React.ReactNode {
+  function renderTextField(id, label, disabled, value, fn) {
     return (
       <TextField
         id={id}
@@ -50,8 +36,13 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     <>
       <DialogContent>
         <div className={classes.contentContainer}>
-          {renderTextField('first-name', 'First Name', true, user.first_name)}
-          {renderTextField('last-name', 'Last Name', true, user.last_name)}
+          {renderTextField(
+            'first-name',
+            'First Name',
+            true,
+            user.user.first_name
+          )}
+          {renderTextField('last-name', 'Last Name', true, user.user.last_name)}
           {renderTextField(
             'username',
             'username',
@@ -63,7 +54,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
             'review-count',
             'Review Count',
             true,
-            user.review_count
+            user.user.review_count
           )}
         </div>
       </DialogContent>

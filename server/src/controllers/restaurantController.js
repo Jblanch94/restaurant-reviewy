@@ -33,6 +33,7 @@ const fetchAllRestaurantsAndAvgRating = async (req, res) => {
   try {
     const restaurantService = new RestaurantService();
     const restaurants = await restaurantService.fetchAllRestaurantsAndAvgRating();
+    console.log(restaurants);
     res.send(restaurants.rows);
   } catch (err) {
     res.status(500).send(err.message);

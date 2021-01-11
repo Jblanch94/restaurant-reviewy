@@ -3,31 +3,19 @@ import { Avatar, Menu, MenuItem, Dialog } from '@material-ui/core';
 
 import ProfileFormContainer from '../../containers/ProfileFormContainer';
 
-type AvatarMenuProps = {
-  user: {};
-  auth: {};
-  logout: () => void;
-  dispatch: (args: any) => void;
-};
-
-const AvatarMenu: React.FC<AvatarMenuProps> = ({
-  user,
-  auth,
-  logout,
-  dispatch,
-}) => {
+const AvatarMenu = ({ user, auth, logout, dispatch }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMenuClick = (): void => setMenuOpen(!menuOpen);
+  const handleMenuClick = () => setMenuOpen(!menuOpen);
 
-  const onOpenOrClose = (evt: any): void => {
+  const onOpenOrClose = (evt) => {
     setAnchorEl(evt.currentTarget);
     handleMenuClick();
   };
 
-  const handleModalClick = (): void => setModalOpen(!modalOpen);
+  const handleModalClick = () => setModalOpen(!modalOpen);
 
   return (
     <div>

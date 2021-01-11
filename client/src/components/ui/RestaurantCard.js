@@ -12,29 +12,12 @@ import { Rating } from '@material-ui/lab';
 import { Link } from 'react-router-dom';
 
 import useStyles from '../../assets/styles/RestaurantCard';
-import { User } from '../../assets/types';
 
-type RestaurantCardProps = {
-  id: number;
-  name: string;
-  city: string;
-  state: string;
-  avg_rating: string;
-  user: User;
-};
-
-const RestaurantCard: React.FC<RestaurantCardProps> = ({
-  id,
-  name,
-  city,
-  state,
-  avg_rating,
-  user,
-}) => {
+const RestaurantCard = ({ id, name, city, state, avg_rating, user }) => {
   const classes = useStyles();
 
-  function renderUserLink(): React.ReactNode {
-    if (!user.isadmin) {
+  function renderUserLink() {
+    if (!user.user.isadmin) {
       return (
         <Container>
           <Link

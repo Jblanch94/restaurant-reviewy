@@ -10,24 +10,9 @@ import {
   CssBaseline,
 } from '@material-ui/core';
 
-import states from '../assets/states';
+import states from '../../assets/states';
 
-type AdminRestaurantFormProps = {
-  values: any;
-  functions: {
-    setName: any;
-    setState: any;
-    setCity: any;
-    setZipcode: any;
-  };
-  handleChange: (
-    fn: (e: React.FormEvent<HTMLInputElement>) => void,
-    evt: any
-  ) => void;
-  handleSubmit: (evt: React.FormEvent<HTMLElement>) => void;
-};
-
-const AdminRestaurantForm: React.FC<AdminRestaurantFormProps> = ({
+const AdminRestaurantForm = ({
   values,
   functions,
   handleChange,

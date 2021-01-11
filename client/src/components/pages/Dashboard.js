@@ -5,19 +5,12 @@ import { Add } from '@material-ui/icons';
 
 import RestaurantCard from '../ui/RestaurantCard';
 import useStyles from '../../assets/styles/Dashboard';
-import { User } from '../../assets/types';
 
-type DashboardProps = {
-  user: User;
-  restaurants: {
-    map?: any;
-  };
-};
-
-const Dashboard: React.FC<DashboardProps> = ({ user, restaurants }) => {
+const Dashboard = ({ user, restaurants }) => {
+  console.log(restaurants);
   const classes = useStyles();
 
-  function renderRestaurantCards(): React.ReactNode {
+  function renderRestaurantCards() {
     return restaurants.map(
       ({
         restaurant_id,
@@ -25,7 +18,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, restaurants }) => {
         restaurant_city,
         restaurant_state,
         avg_rating,
-      }: any) => {
+      }) => {
         return (
           <RestaurantCard
             key={restaurant_id}
@@ -42,7 +35,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, restaurants }) => {
   }
 
   function renderFab() {
-    if (user.isadmin) {
+    if (user.user.isadmin) {
       return (
         <Link to="/admin/restaurant-form">
           <Fab color="primary" size="large" className={classes.dashboardFab}>

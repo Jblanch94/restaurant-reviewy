@@ -1,10 +1,13 @@
 export interface User {
-  isadmin?: boolean;
-  first_name?: string;
-  last_name?: string;
-  review_count?: number;
-  username?: string;
-  user_id?: number;
+  user: {
+    isadmin: boolean;
+    first_name?: string;
+    last_name?: string;
+    review_count?: number;
+    username?: string;
+    user_id?: number;
+  };
+  users: [];
 }
 
 export interface Auth {

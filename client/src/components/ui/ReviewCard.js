@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Typography, CardContent, Container } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { fetchUserById } from '../../actions/userActions';
 import useStyles from '../../assets/styles/ReviewCard';
 
-type ReviewCardProps = {
-  review: string;
-  rating: number;
-};
-
-const ReviewCard: React.FC<ReviewCardProps> = ({ review, rating }) => {
+const ReviewCard = ({ review, rating, userId }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(fetchUserById(userId));
+  }, [dispatch, userId]);
+
+  const reviewOwner = users.users.find((el) => {
+    return el.user_id === userId;
+  });
 
   return (
     <>
@@ -18,7 +25,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review, rating }) => {
         <CardContent>
           <Container className={classes.cardContentContainer}>
             <Typography component="h5" variant="h5">
-              user
+              {reviewOwner !== undefined ? reviewOwner.username : ''}
             </Typography>
             <Rating name="review-rating" readOnly value={rating} />
           </Container>

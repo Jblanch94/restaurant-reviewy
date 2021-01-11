@@ -4,9 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import { registerUser } from '../actions/authActions';
 import Register from '../components/pages/Register';
-import { Errors } from '../assets/types';
 
-const RegisterContainer: React.FC = () => {
+const RegisterContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [first_name, setFirstName] = useState('');
@@ -15,14 +14,11 @@ const RegisterContainer: React.FC = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
-  const onHandleChange = (
-    evt: React.ChangeEvent<HTMLInputElement>,
-    fn: (e: string) => void
-  ) => fn(evt.target.value);
+  const onHandleChange = (evt, fn) => fn(evt.target.value);
 
   //validate form fields
   const formValidation = () => {
-    let errors: Errors = {
+    let errors = {
       first_name: '',
       last_name: '',
       username: '',
@@ -47,7 +43,7 @@ const RegisterContainer: React.FC = () => {
     return errors;
   };
 
-  const onFormSubmit = (evt: React.FormEvent) => {
+  const onFormSubmit = (evt) => {
     //prevent refresh of page
     evt.preventDefault();
 

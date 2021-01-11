@@ -1,10 +1,10 @@
 import types from './types';
 import axiosReview from '../axios/axiosReview';
 
-export const fetchRestaurantReviews = (id) => {
+export const fetchRestaurantReviews = (restaurantId) => {
   return async (dispatch) => {
     try {
-      const response = await axiosReview.get(`/restaurant/${id}`);
+      const response = await axiosReview.get(`/restaurant/${restaurantId}`);
       dispatch({
         type: types.FETCH_RESTAURANT_REVIEWS,
         payload: response.data,
