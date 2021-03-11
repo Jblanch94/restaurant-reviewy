@@ -47,7 +47,8 @@ class RestaurantService {
 
   async fetchAllRestaurants() {
     try {
-      const query = 'SELECT * FROM restaurants';
+      const query =
+        'SELECT restaurant_id, restaurant_name, restaurant_city, restaurant_state FROM restaurants';
       const response = await db.query(query);
       return response;
     } catch (err) {

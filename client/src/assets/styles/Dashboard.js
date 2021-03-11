@@ -9,6 +9,11 @@ const useStyles = makeStyles(
       flex: 1,
     },
 
+    dashboardHeader: {
+      textAlign: 'center',
+      textTransform: 'uppercase',
+    },
+
     dashboardFab: {
       margin: 0,
       top: 'auto',

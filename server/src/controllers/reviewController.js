@@ -5,8 +5,6 @@ const createNewReview = async (req, res) => {
   const { id } = req.params;
   const { userId } = req.user;
 
-  console.log('user', req.user);
-
   try {
     const review = new Review({ ...req.body, userId, restaurantId: id });
     const reviewService = new ReviewService();
@@ -14,7 +12,6 @@ const createNewReview = async (req, res) => {
     if (newReview.type === 'error') {
       throw newReview;
     }
-    console.log(newReview);
     res.status(201).json(newReview.rows[0]);
   } catch (err) {
     console.error(err);

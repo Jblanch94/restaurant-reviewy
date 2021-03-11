@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Fab } from '@material-ui/core';
+import { Fab, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
 import RestaurantCard from '../ui/RestaurantCard';
 import useStyles from '../../assets/styles/Dashboard';
 
 const Dashboard = ({ user, restaurants }) => {
-  console.log(restaurants);
   const classes = useStyles();
 
   function renderRestaurantCards() {
@@ -34,23 +33,27 @@ const Dashboard = ({ user, restaurants }) => {
     );
   }
 
-  function renderFab() {
-    if (user.user.isadmin) {
-      return (
-        <Link to="/admin/restaurant-form">
-          <Fab color="primary" size="large" className={classes.dashboardFab}>
-            <Add />
-          </Fab>
-        </Link>
-      );
-    } else return null;
-  }
+  const fab = (
+    <Link to="/admin/restaurant-form">
+      <Fab color="primary" size="large" className={classes.dashboardFab}>
+        <Add />
+      </Fab>
+    </Link>
+  );
 
   return (
-    <div className={classes.dashboardContainer}>
-      {renderRestaurantCards()}
-      {renderFab()}
-    </div>
+    <main>
+      <Typography
+        className={classes.dashboardHeader}
+        variant="h1"
+        component="h1">
+        Restaurant Reviewy
+      </Typography>
+      <div className={classes.dashboardContainer}>
+        {renderRestaurantCards()}
+        {user.user.isadmin && fab}
+      </div>
+    </main>
   );
 };
 

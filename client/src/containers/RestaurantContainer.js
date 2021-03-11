@@ -7,13 +7,17 @@ import Restaurant from '../components/pages/Restaurant';
 const RestaurantContainer = (props) => {
   const reviews = useSelector((state) => state.reviews);
   const dispatch = useDispatch();
+  let restaurant;
+  if (reviews.length) {
+    restaurant = reviews[0].restaurant_name;
+  }
 
   useEffect(() => {
     const { id } = props.match.params;
     dispatch(fetchRestaurantReviews(id));
   }, [dispatch, props.match.params, props.match.params.id]);
 
-  return <Restaurant reviews={reviews} />;
+  return <Restaurant reviews={reviews} restaurant={restaurant} />;
 };
 
 export default RestaurantContainer;

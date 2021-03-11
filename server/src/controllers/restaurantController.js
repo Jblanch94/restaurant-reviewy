@@ -20,11 +20,13 @@ const createNewRestaurant = async (req, res) => {
     const newRestaurant = await restaurantService.createNewRestaurant(
       restaurant
     );
+    console.log('new restaurant', newRestaurant);
     if (newRestaurant.type === 'error') {
       throw newRestaurant;
     }
     res.status(201).send(newRestaurant.rows[0]);
   } catch (err) {
+    console.error(err);
     res.status(err.statusCode || 500).send(err.message);
   }
 };

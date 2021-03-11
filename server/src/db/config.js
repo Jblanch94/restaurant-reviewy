@@ -14,7 +14,7 @@ if (process.env.ENV === 'production') {
   pool = new pg.Pool({
     host: 'localhost',
     user: 'postgres',
-    password: 'Jblanch94!',
+    password: 'postgres',
     database: 'restaurant-reviewy',
     port: 5432,
   });

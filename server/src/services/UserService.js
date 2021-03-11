@@ -5,7 +5,7 @@ class UserService {
   async getCurrentUser(user) {
     try {
       //find user by id
-      const query = `SELECT user_id, first_name, last_name, username, review_count, isAdmin 
+      const query = `SELECT user_id, first_name, last_name, username, isAdmin 
       FROM Users WHERE user_id = $1 `;
       const userProfile = await db.query(query, [user.userId]);
       return userProfile;
@@ -49,7 +49,7 @@ class UserService {
   async fetchUserById(user) {
     try {
       const query =
-        'SELECT user_id, first_name, last_name, username, review_count FROM users WHERE user_id = $1';
+        'SELECT user_id, first_name, last_name, username FROM users WHERE user_id = $1';
       const response = await db.query(query, [user.userId]);
       return response;
     } catch (err) {

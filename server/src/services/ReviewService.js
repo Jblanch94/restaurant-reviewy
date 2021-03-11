@@ -28,16 +28,6 @@ class ReviewService {
         review.restaurantId,
       ]);
 
-      //find user by id and increment the review count
-      const fetchUserQuery =
-        'SELECT review_count FROM Users WHERE user_id = $1';
-      const updateReviewCountQuery =
-        'UPDATE Users SET review_count = $1 + 1 WHERE user_id = $2';
-      const currentUser = await db.query(fetchUserQuery, [review.userId]);
-      await db.query(updateReviewCountQuery, [
-        currentUser.rows[0].review_count,
-        review.userId,
-      ]);
       return newReview;
     } catch (err) {
       return err;

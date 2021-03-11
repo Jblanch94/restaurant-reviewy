@@ -1,6 +1,6 @@
-require('dotenv').config({
-  path: '/home/jblanchard/projects/restaurant-reviewy/server/src/.env',
-});
+require('dotenv').config({ path: '.env' });
+
+console.log(process.env.JWT_SECRET);
 
 module.exports = {
   JWT_SECRET: process.env.JWT_SECRET,

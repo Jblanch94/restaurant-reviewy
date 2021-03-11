@@ -4,6 +4,5 @@ CREATE TABLE Users(
     last_name VARCHAR(255) NOT NULL,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    review_count INT DEFAULT 0,
     isAdmin BOOLEAN DEFAULT false
 );

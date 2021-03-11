@@ -77,6 +77,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   //destructure the body for username and password
   const { username, password } = req.body;
+  console.log('Login User end point hit');
 
   //validate that username and password was received
   const validParams = checkParams({ username, password });
