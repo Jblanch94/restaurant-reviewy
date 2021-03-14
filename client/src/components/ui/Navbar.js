@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import RestaurantMenuSharpIcon from '@material-ui/icons/RestaurantMenuSharp';
 import { AppBar, Toolbar } from '@material-ui/core';
-
 import AvatarMenu from './AvatarMenu';
 import LinkText from './LinkText';
 import useStyles from '../../assets/styles/Navbar';
@@ -53,16 +52,7 @@ const Navbar = ({ user, auth, logout, dispatch }) => {
             />
           </div>
           {renderWriteReview()}
-          {!token ? (
-            renderSignIn()
-          ) : (
-            <AvatarMenu
-              user={user}
-              logout={logout}
-              dispatch={dispatch}
-              auth={auth}
-            />
-          )}
+          {!token ? renderSignIn() : <AvatarMenu user={user} auth={auth} />}
         </Toolbar>
       </AppBar>
     );

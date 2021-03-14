@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Avatar, Menu, MenuItem, Dialog } from '@material-ui/core';
-
 import ProfileFormContainer from '../../containers/ProfileFormContainer';
+import useActions from '../../hooks/useActions';
 
 const AvatarMenu = ({ user, auth, logout, dispatch }) => {
+  const { authActions } = useActions();
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,10 +27,9 @@ const AvatarMenu = ({ user, auth, logout, dispatch }) => {
         open={menuOpen}
         onClose={onOpenOrClose}
         getContentAnchorEl={null}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
         <MenuItem onClick={handleModalClick}>Profile</MenuItem>
-        <MenuItem onClick={() => dispatch(logout())}>Sign Out</MenuItem>
+        <MenuItem onClick={() => authActions.logout()}>Sign Out</MenuItem>
       </Menu>
       <Dialog
         disableBackdropClick
@@ -37,8 +37,7 @@ const AvatarMenu = ({ user, auth, logout, dispatch }) => {
         open={modalOpen}
         transitionDuration={500}
         maxWidth="sm"
-        fullWidth
-      >
+        fullWidth>
         <ProfileFormContainer
           user={user}
           handleModalClick={handleModalClick}

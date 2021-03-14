@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { getAllRestaurantsAndAvgRating } from '../actions/restaurantActions';
+import { useSelector } from 'react-redux';
+import useActions from '../hooks/useActions';
 import Dashboard from '../components/pages/Dashboard';
 
 const DashboardContainer = () => {
   const restaurants = useSelector((state) => state.restaurants);
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { restaurantActions } = useActions();
 
   useEffect(() => {
-    dispatch(getAllRestaurantsAndAvgRating());
-  }, [dispatch]);
+    restaurantActions.getAllRestaurantsAndAvgRating();
+  }, []);
 
   return <Dashboard user={user} restaurants={restaurants} />;
 };

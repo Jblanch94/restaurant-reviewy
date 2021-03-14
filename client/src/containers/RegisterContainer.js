@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { registerUser } from '../actions/authActions';
 import Register from '../components/pages/Register';
 import useInput from '../hooks/useInput';
+import useActions from '../hooks/useActions';
 
 const RegisterContainer = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const [first_name, onHandleFirstName] = useInput('');
   const [last_name, onHandleLastName] = useInput('');
   const [username, onHandleUsername] = useInput('');
   const [password, onHandlePassword] = useInput('');
   const [errors, setErrors] = useState({});
+  const { authActions } = useActions();
 
   //validate form fields
   const formValidation = () => {
@@ -56,16 +55,14 @@ const RegisterContainer = () => {
       formErrors.username === '' &&
       formErrors.password === ''
     ) {
-      dispatch(
-        registerUser(
-          {
-            first_name,
-            last_name,
-            username,
-            password,
-          },
-          history
-        )
+      authActions.registerUser(
+        {
+          first_name,
+          last_name,
+          username,
+          password,
+        },
+        history
       );
     }
   };

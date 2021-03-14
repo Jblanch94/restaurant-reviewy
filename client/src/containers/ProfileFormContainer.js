@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { updateUser } from '../actions/userActions';
+import React from 'react';
 import ProfileForm from '../components/ui/ProfileForm';
 import useInput from '../hooks/useInput';
+import useActions from '../hooks/useActions';
 
 const ProfileFormContainer = ({ user, handleModalClick, handleMenuClick }) => {
   const [username, onHandleUsername] = useInput(user.user.username);
-  const dispatch = useDispatch();
+  const { userActions } = useActions();
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(updateUser({ username }));
+    userActions.updateUser({ username });
     handleModalClick();
     handleMenuClick();
   };

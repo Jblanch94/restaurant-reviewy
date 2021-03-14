@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getAllRestaurants } from '../actions/restaurantActions';
-import { submitReview } from '../actions/reviewActions';
 import ReviewForm from '../components/pages/ReviewForm';
 import useInput from '../hooks/useInput';
+import useActions from '../hooks/useActions';
 
 const ReviewFormContainer = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const { restaurantActions, reviewActions } = useActions();
   const restaurants = useSelector((state) => state.restaurants);
   const auth = useSelector((state) => state.auth);
   const [rating, onHandleRating] = useInput(0);
@@ -21,8 +20,8 @@ const ReviewFormContainer = () => {
       history.push('/user/login');
     }
 
-    dispatch(getAllRestaurants());
-  }, [auth.isAuthenticated, dispatch, history]);
+    restaurantActions.getAllRestaurants();
+  }, [auth.isAuthenticated, history]);
 
   const onHandleSelectedRestaurantChange = (evt, child) => {
     setSelectedRestaurant(evt.target.value);
@@ -33,7 +32,7 @@ const ReviewFormContainer = () => {
     evt.preventDefault();
 
     const formValues = { stars: parseInt(rating), review };
-    dispatch(submitReview(formValues, restaurantId, history));
+    reviewActions.submitReview(formValues, restaurantId, history);
 
     //clear form
     setSelectedRestaurant('');
