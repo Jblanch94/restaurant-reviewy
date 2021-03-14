@@ -3,12 +3,11 @@ import { useDispatch } from 'react-redux';
 
 import { updateUser } from '../actions/userActions';
 import ProfileForm from '../components/ui/ProfileForm';
+import useInput from '../hooks/useInput';
 
 const ProfileFormContainer = ({ user, handleModalClick, handleMenuClick }) => {
-  const [username, setUsername] = useState(user.user.username);
+  const [username, onHandleUsername] = useInput(user.user.username);
   const dispatch = useDispatch();
-
-  const handleChange = (evt) => setUsername(evt.target.value);
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
@@ -22,7 +21,7 @@ const ProfileFormContainer = ({ user, handleModalClick, handleMenuClick }) => {
       user={user}
       username={username}
       handleModalClick={handleModalClick}
-      handleChange={handleChange}
+      onHandleUsername={onHandleUsername}
       onFormSubmit={onFormSubmit}
     />
   );

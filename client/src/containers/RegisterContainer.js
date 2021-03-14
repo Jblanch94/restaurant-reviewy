@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 import { registerUser } from '../actions/authActions';
 import Register from '../components/pages/Register';
+import useInput from '../hooks/useInput';
 
 const RegisterContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [first_name, onHandleFirstName] = useInput('');
+  const [last_name, onHandleLastName] = useInput('');
+  const [username, onHandleUsername] = useInput('');
+  const [password, onHandlePassword] = useInput('');
   const [errors, setErrors] = useState({});
-
-  const onHandleChange = (evt, fn) => fn(evt.target.value);
 
   //validate form fields
   const formValidation = () => {
@@ -69,23 +67,18 @@ const RegisterContainer = () => {
           history
         )
       );
-      setFirstName('');
-      setLastName('');
-      setUsername('');
-      setPassword('');
     }
   };
 
   return (
     <Register
-      onHandleChange={onHandleChange}
       onFormSubmit={onFormSubmit}
       functions={{
-        setFirstName,
-        setLastName,
-        setUsername,
+        onHandleFirstName,
+        onHandleLastName,
+        onHandleUsername,
         setErrors,
-        setPassword,
+        onHandlePassword,
       }}
       values={{ first_name, last_name, username, password, errors }}
     />

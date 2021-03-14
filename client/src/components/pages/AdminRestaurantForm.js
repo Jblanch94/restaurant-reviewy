@@ -12,12 +12,7 @@ import {
 
 import states from '../../assets/states';
 
-const AdminRestaurantForm = ({
-  values,
-  functions,
-  handleChange,
-  handleSubmit,
-}) => {
+const AdminRestaurantForm = ({ values, functions, handleSubmit }) => {
   function renderStateOptions() {
     return states.map((state, index) => {
       return (
@@ -38,13 +33,11 @@ const AdminRestaurantForm = ({
           alignItems: 'center',
 
           marginTop: '3rem',
-        }}
-      >
+        }}>
         <Typography
           component="h2"
           variant="h2"
-          style={{ marginBottom: '0.5rem' }}
-        >
+          style={{ marginBottom: '0.5rem' }}>
           Add Restaurant
         </Typography>
 
@@ -55,7 +48,7 @@ const AdminRestaurantForm = ({
             name="name"
             required
             value={values.name}
-            onChange={(evt) => handleChange(functions.setName, evt)}
+            onChange={functions.onHandleName}
             variant="outlined"
             fullWidth
             style={{ marginBottom: '1rem' }}
@@ -66,7 +59,7 @@ const AdminRestaurantForm = ({
             id="city"
             name="city"
             value={values.city}
-            onChange={(evt) => handleChange(functions.setCity, evt)}
+            onChange={functions.onHandleCity}
             required
             variant="outlined"
             fullWidth
@@ -79,12 +72,11 @@ const AdminRestaurantForm = ({
             id="state"
             name="state"
             value={values.state}
-            onChange={(evt) => handleChange(functions.setState, evt)}
+            onChange={functions.onHandleState}
             variant="outlined"
             fullWidth
             style={{ marginBottom: '1rem' }}
-            required
-          >
+            required>
             {renderStateOptions()}
           </Select>
 
@@ -93,7 +85,7 @@ const AdminRestaurantForm = ({
             id="zipcode"
             name="zipcode"
             required
-            onChange={(evt) => handleChange(functions.setZipcode, evt)}
+            onChange={functions.onHandleZipcode}
             value={values.zipcode}
             variant="outlined"
             fullWidth

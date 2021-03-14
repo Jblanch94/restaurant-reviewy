@@ -14,9 +14,7 @@ import useStyles from '../../assets/styles/ReviewForm';
 
 const ReviewForm = ({
   restaurants,
-  onHandleChange,
   onHandleSelectedRestaurantChange,
-  onHandleRatingChange,
   onFormSubmit,
   values,
   functions,
@@ -29,8 +27,7 @@ const ReviewForm = ({
         <MenuItem
           key={restaurant.restaurant_id}
           value={restaurant.restaurant_name}
-          id={restaurant.restaurant_id}
-        >
+          id={restaurant.restaurant_id}>
           {restaurant.restaurant_name}
         </MenuItem>
       );
@@ -55,16 +52,15 @@ const ReviewForm = ({
             value={values.selectedRestaurant}
             onChange={(evt, child) =>
               onHandleSelectedRestaurantChange(evt, child)
-            }
-          >
+            }>
             {renderMenuItems()}
           </Select>
         </div>
         <div className={classes.ratingContainer}>
           <Rating
             name="rating"
-            value={values.rating}
-            onChange={onHandleRatingChange}
+            value={parseInt(values.rating)}
+            onChange={functions.onHandleRating}
           />
         </div>
         <div className={classes.reviewContainer}>
@@ -74,7 +70,7 @@ const ReviewForm = ({
             rowsMin={3}
             placeholder="Enter your review..."
             value={values.review}
-            onChange={(evt) => onHandleChange(evt, functions.setReview)}
+            onChange={functions.onHandleReview}
           />
         </div>
 

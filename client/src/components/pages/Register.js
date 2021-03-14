@@ -3,7 +3,7 @@ import { TextField, Container, Grid, Button } from '@material-ui/core';
 
 import useStyles from '../../assets/styles/Register';
 
-const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
+const Register = ({ onFormSubmit, functions, values }) => {
   const classes = useStyles();
 
   return (
@@ -20,7 +20,7 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="first_name"
               name="first_name"
               type="text"
-              onChange={(evt) => onHandleChange(evt, functions.setFirstName)}
+              onChange={functions.onHandleFirstName}
               value={values.first_name}
               required
               autoFocus
@@ -35,7 +35,7 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="last_name"
               name="last_name"
               type="text"
-              onChange={(evt) => onHandleChange(evt, functions.setLastName)}
+              onChange={functions.onHandleLastName}
               value={values.last_name}
               required
             />
@@ -49,7 +49,7 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="username"
               name="username"
               type="text"
-              onChange={(evt) => onHandleChange(evt, functions.setUsername)}
+              onChange={functions.onHandleUsername}
               value={values.username}
               required
               fullWidth
@@ -64,7 +64,7 @@ const Register = ({ onHandleChange, onFormSubmit, functions, values }) => {
               id="password"
               name="password"
               type="password"
-              onChange={(evt) => onHandleChange(evt, functions.setPassword)}
+              onChange={functions.onHandlePassword}
               value={values.password}
               required
               fullWidth

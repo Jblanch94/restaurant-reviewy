@@ -15,9 +15,9 @@ const Login = ({
   auth,
   username,
   password,
-  onHandleChange,
   onFormSubmit,
-  functions,
+  onHandleUsername,
+  onHandlePassword,
 }) => {
   const classes = useStyles();
 
@@ -26,8 +26,7 @@ const Login = ({
       <form autoComplete="false" onSubmit={onFormSubmit}>
         <h1
           style={{ textAlign: 'center', fontSize: '2rem' }}
-          className={classes.header}
-        >
+          className={classes.header}>
           Login
         </h1>
         <Grid container spacing={3} className={classes.grid}>
@@ -38,7 +37,7 @@ const Login = ({
               id="username"
               name="username"
               type="text"
-              onChange={(evt) => onHandleChange(evt, functions.setUsername)}
+              onChange={onHandleUsername}
               value={username}
               required
               fullWidth
@@ -53,7 +52,7 @@ const Login = ({
               id="password"
               name="password"
               type="password"
-              onChange={(evt) => onHandleChange(evt, functions.setPassword)}
+              onChange={onHandlePassword}
               value={password}
               required
               fullWidth

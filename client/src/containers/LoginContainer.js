@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 import { loginUser } from '../actions/authActions';
 import Login from '../components/pages/Login';
+import useInput from '../hooks/useInput';
 
 const LoginContainer = () => {
   const auth = useSelector((state) => state.auth);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onHandleChange = (evt, fn) => fn(evt.target.value);
+  const [username, onHandleUsername] = useInput('');
+  const [password, onHandlePassword] = useInput('');
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
@@ -23,11 +20,11 @@ const LoginContainer = () => {
   return (
     <Login
       auth={auth}
-      onHandleChange={onHandleChange}
       onFormSubmit={onFormSubmit}
       username={username}
       password={password}
-      functions={{ setUsername, setPassword }}
+      onHandleUsername={onHandleUsername}
+      onHandlePassword={onHandlePassword}
     />
   );
 };

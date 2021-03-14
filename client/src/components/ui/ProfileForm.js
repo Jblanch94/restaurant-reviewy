@@ -12,7 +12,7 @@ const ProfileForm = ({
   user,
   username,
   handleModalClick,
-  handleChange,
+  onHandleUsername,
   onFormSubmit,
 }) => {
   const classes = useStyles();
@@ -48,7 +48,7 @@ const ProfileForm = ({
             'username',
             false,
             username,
-            handleChange
+            onHandleUsername
           )}
           {renderTextField(
             'review-count',
