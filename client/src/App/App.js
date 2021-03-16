@@ -22,7 +22,7 @@ const App = () => {
     }
   }, [dispatch, auth.isAuthenticated, auth.token]);
 
-  return <Routes user={user} auth={auth} />;
+  return <Routes user={user} auth={auth} data-testid="routes" />;
 };
 
 export default App;

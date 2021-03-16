@@ -35,14 +35,18 @@ const Dashboard = ({ user, restaurants }) => {
 
   const fab = (
     <Link to="/admin/restaurant-form">
-      <Fab color="primary" size="large" className={classes.dashboardFab}>
+      <Fab
+        color="primary"
+        size="large"
+        className={classes.dashboardFab}
+        data-testid="fab">
         <Add />
       </Fab>
     </Link>
   );
 
   return (
-    <main>
+    <main data-testid="Dashboard">
       <Typography
         className={classes.dashboardHeader}
         variant="h1"

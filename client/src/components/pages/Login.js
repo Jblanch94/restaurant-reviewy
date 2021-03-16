@@ -22,7 +22,7 @@ const Login = ({
   const classes = useStyles();
 
   return (
-    <Container maxWidth="sm" component="section">
+    <Container maxWidth="sm" component="section" data-testid="Login-Component">
       <form autoComplete="false" onSubmit={onFormSubmit}>
         <h1
           style={{ textAlign: 'center', fontSize: '2rem' }}
@@ -51,7 +51,7 @@ const Login = ({
               label="Password"
               id="password"
               name="password"
-              type="password"
+              type="text"
               onChange={onHandlePassword}
               value={password}
               required

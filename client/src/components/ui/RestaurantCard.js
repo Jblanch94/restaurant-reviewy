@@ -22,8 +22,7 @@ const RestaurantCard = ({ id, name, city, state, avg_rating, user }) => {
         <Container>
           <Link
             style={{ textDecoration: 'none' }}
-            to={`/user/dashboard/restaurant/${id}`}
-          >
+            to={`/user/dashboard/restaurant/${id}`}>
             <Button color="primary" size="small">
               View More Info
             </Button>
@@ -34,7 +33,7 @@ const RestaurantCard = ({ id, name, city, state, avg_rating, user }) => {
   }
 
   return (
-    <Card className={classes.cardContainer}>
+    <Card className={classes.cardContainer} data-testid="restaurant-card">
       <CardContent>
         <Container className={classes.cardContentContainer}>
           <div>
